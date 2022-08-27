@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyHttpServer.Common;
 
 namespace MyHttpServer.HTTP
 {
@@ -13,6 +9,9 @@ namespace MyHttpServer.HTTP
 
         public Header(string _name, string _value)
         {
+            Guard.AgainstNull(_name, nameof(_name));
+            Guard.AgainstNull(_value, nameof(_value));
+
             Name = _name;
             Value = _value;
         }
