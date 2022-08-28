@@ -10,7 +10,7 @@ namespace MyHttpServer.HTTP
         public const string Location = "Location";
         public const string Server = "Server";
 
-        public string Name { get; set; }
+        public string Name { get; init; }
         public string Value { get; set; }
 
         public Header(string _name, string _value)
@@ -21,5 +21,8 @@ namespace MyHttpServer.HTTP
             Name = _name;
             Value = _value;
         }
+
+        public override string ToString()
+            => $"{this.Name}: {this.Value}";
     }
 }
