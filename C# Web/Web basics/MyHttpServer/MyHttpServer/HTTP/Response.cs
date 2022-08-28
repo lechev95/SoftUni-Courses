@@ -9,8 +9,8 @@
         public Response(StatusCode statusCode)
         {
             StatusCode = statusCode;
-            Headers.Add("Server", "My Server");
-            Headers.Add("Date", $"{DateTime.UtcNow:r}");
+            Headers.Add(Header.Server, "My Server");
+            Headers.Add(Header.Date, $"{DateTime.UtcNow:r}");
         }
     }
 }
