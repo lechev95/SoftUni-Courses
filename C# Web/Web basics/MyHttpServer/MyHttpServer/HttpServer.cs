@@ -34,7 +34,7 @@ namespace MyHttpServer
         {
         }
 
-        public void Start()
+        public async Task Start()
         {
             serverListener.Start();
 
@@ -44,30 +44,33 @@ namespace MyHttpServer
             while (true)
             {
 
-                var connection = serverListener.AcceptTcpClient();
-                var networkStream = connection.GetStream();
-                string strRequest = ReadRequest(networkStream);
-                Console.WriteLine(strRequest);
-                Request request = Request.Parse(strRequest);
-                var response = this.routingTable.MatchRequest(request);
-
-                if(response.PreRenderAction != null)
+                var connection = await serverListener.AcceptTcpClientAsync();
+                _ = Task.Run(async () =>
                 {
-                    response.PreRenderAction(request, response);
-                }
+                    var networkStream = connection.GetStream();
+                    string strRequest = await ReadRequest(networkStream);
+                    Console.WriteLine(strRequest);
+                    Request request = Request.Parse(strRequest);
+                    var response = this.routingTable.MatchRequest(request);
 
-                WriteResponse(networkStream, response);
-                connection.Close();
+                    if (response.PreRenderAction != null)
+                    {
+                        response.PreRenderAction(request, response);
+                    }
+
+                    await WriteResponse(networkStream, response);
+                    connection.Close();
+                });
             }
         }
 
-        private void WriteResponse(NetworkStream networkStream, Response response)
+        private async Task WriteResponse(NetworkStream networkStream, Response response)
         {
             var responseBytes = Encoding.UTF8.GetBytes(response.ToString());
-            networkStream.Write(responseBytes);
+            await networkStream.WriteAsync(responseBytes);
         }
 
-        private string ReadRequest(NetworkStream networkStream)
+        private async Task<string> ReadRequest(NetworkStream networkStream)
         {
             byte[] buffer = new byte[1024];
             StringBuilder request = new StringBuilder();
@@ -75,7 +78,7 @@ namespace MyHttpServer
 
             do
             {
-                int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
+                int bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
                 totalBytes += bytesRead;
 
                 if(totalBytes > 10 * 1024)
