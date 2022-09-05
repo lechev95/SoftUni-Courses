@@ -5,11 +5,12 @@ namespace MyHttpServer.HTTP
     public class Request
     {
         public Method Method { get; private set; }
-        public string Url { get; private set; }
-        public HeaderCollection Headers { get; private set; }
-        public string Body { get; private set; }
+        public string? Url { get; private set; }
+        public HeaderCollection? Headers { get; private set; }
+        public CookieCollection? Cookies { get; private set; }
+        public string? Body { get; private set; }
 
-        public IReadOnlyDictionary<string, string> Form { get; private set; }
+        public IReadOnlyDictionary<string, string>? Form { get; private set; }
 
         public static Request Parse(string request)
         {
@@ -21,6 +22,7 @@ namespace MyHttpServer.HTTP
             var url = firstLine[1];
             Method method = ParseMethod(firstLine[0]);
             HeaderCollection headers = ParseHeaders(lines.Skip(1));
+            var cookies = ParseCookies(headers);
             var bodyLines = lines.Skip(headers.Count + 2);
             string body = string.Join("/r/n", bodyLines);
             var form = ParseForm(headers, body);
@@ -30,9 +32,31 @@ namespace MyHttpServer.HTTP
                 Method = method,
                 Url = url,
                 Headers = headers,
+                Cookies = cookies,
                 Body = body,
                 Form = form
             };
+        }
+
+        private static CookieCollection ParseCookies(HeaderCollection headers)
+        {
+            var cookieCollection = new CookieCollection();
+
+            if (headers.Contains(Header.Cookie))
+            {
+                var cookieHeader = headers[Header.Cookie];
+                var allCookies = cookieHeader.Split(';');
+                foreach (var cookieText in allCookies)
+                {
+                    var cookieParts = cookieText.Split('=');
+                    var cookieName = cookieParts[0].Trim();
+                    var cookieValue = cookieParts[1].Trim();
+
+                    cookieCollection.Add(cookieName, cookieValue);
+                }
+            }
+
+            return cookieCollection;
         }
 
         private static HeaderCollection ParseHeaders(IEnumerable<string> lines)
