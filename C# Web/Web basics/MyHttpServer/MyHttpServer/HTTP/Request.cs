@@ -9,8 +9,11 @@ namespace MyHttpServer.HTTP
         public HeaderCollection? Headers { get; private set; }
         public CookieCollection? Cookies { get; private set; }
         public string? Body { get; private set; }
+        public Session? Session { get; private set; }
 
         public IReadOnlyDictionary<string, string>? Form { get; private set; }
+
+        private static Dictionary<string, Session> Sessions = new();
 
         public static Request Parse(string request)
         {
@@ -23,6 +26,7 @@ namespace MyHttpServer.HTTP
             Method method = ParseMethod(firstLine[0]);
             HeaderCollection headers = ParseHeaders(lines.Skip(1));
             var cookies = ParseCookies(headers);
+            var session = GetSession(cookies);
             var bodyLines = lines.Skip(headers.Count + 2);
             string body = string.Join("/r/n", bodyLines);
             var form = ParseForm(headers, body);
@@ -34,8 +38,23 @@ namespace MyHttpServer.HTTP
                 Headers = headers,
                 Cookies = cookies,
                 Body = body,
+                Session = session,
                 Form = form
             };
+        }
+
+        private static Session GetSession(CookieCollection cookies)
+        {
+            var sessionId = cookies.Contains(Session.SessionCookieName)
+                ? cookies[Session.SessionCookieName]
+                : Guid.NewGuid().ToString();
+
+            if (!Sessions.ContainsKey(sessionId))
+            {
+                Sessions[sessionId] = new Session(sessionId);
+            }
+
+            return Sessions[sessionId];
         }
 
         private static CookieCollection ParseCookies(HeaderCollection headers)
