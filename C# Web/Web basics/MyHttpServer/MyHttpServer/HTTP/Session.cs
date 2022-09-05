@@ -6,6 +6,7 @@ namespace MyHttpServer.HTTP
     {
         public const string SessionCookieName = "MyWebServerSID";
         public const string SessionCurrentDateKey = "CurrentDate";
+        public const string SessionUserKey = "AuthenticatedUserId";
 
         private Dictionary<string, string> data;
 
@@ -26,5 +27,8 @@ namespace MyHttpServer.HTTP
 
         public bool ContainsKey(string key)
             => this.data.ContainsKey(key);
+
+        public void Clear()
+            => this.data.Clear();
     }
 }
