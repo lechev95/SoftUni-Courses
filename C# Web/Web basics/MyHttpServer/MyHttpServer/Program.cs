@@ -39,7 +39,7 @@ namespace MyHttpServer
             .MapGet("/HTML", new HtmlResponse(StartUp.HtmlForm))
             .MapPost("/HTML", new TextResponse("", StartUp.AddFormDataAction))
             .MapGet("/Content", new HtmlResponse(StartUp.DownloadForm))
-            .MapPost("/Content", new TextFileResponse(StartUp.FileName))
+            .MapPost("/Content", new FileResponse(StartUp.FileName))
             .MapGet("/Cookies", new HtmlResponse("", StartUp.AddCookiesAction))
             .MapGet("/Session", new TextResponse("", StartUp.DisplaySessionInfoAction))
             .MapGet("/Login", new HtmlResponse(StartUp.LoginForm))

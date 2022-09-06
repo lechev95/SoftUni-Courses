@@ -1,17 +1,12 @@
 ﻿using MyHttpServer.HTTP;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHttpServer.Responses
 {
-    public class TextFileResponse : Response
+    public class FileResponse : Response
     {
         public string FileName { get; init; }
 
-        public TextFileResponse(string fileName)
+        public FileResponse(string fileName)
             :base(StatusCode.OK)
         {
             FileName = fileName;
