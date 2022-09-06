@@ -80,6 +80,14 @@ namespace MyHttpServer
         private async Task WriteResponse(NetworkStream networkStream, Response response)
         {
             var responseBytes = Encoding.UTF8.GetBytes(response.ToString());
+
+            if(response.FileContent != null)
+            {
+                responseBytes = responseBytes
+                    .Concat(response.FileContent)
+                    .ToArray();
+            }
+
             await networkStream.WriteAsync(responseBytes);
         }
 

@@ -9,6 +9,8 @@ namespace MyHttpServer.HTTP
         public CookieCollection Cookies { get; } = new CookieCollection();
         public string Body { get; set; }
 
+        public byte[] FileContent { get; set; }
+
         public Action<Request, Response> PreRenderAction { get; protected set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

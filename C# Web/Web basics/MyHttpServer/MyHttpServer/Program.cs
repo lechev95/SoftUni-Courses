@@ -31,8 +31,8 @@ namespace MyHttpServer
 
         public static async Task Main()
         {
-            await DownloadSitesAsTextFile(StartUp.FileName,
-                new string[] { "https://judge.softuni.bg", "https://softuni.org" });
+            //await DownloadSitesAsTextFile(StartUp.FileName,
+            //    new string[] { "https://judge.softuni.bg", "https://softuni.org" });
             var server = new HttpServer(routes => routes
             .MapGet("/", new TextResponse("Hello from the Server!"))
             .MapGet("/Redirect", new RedirectResponse("https://softuni.org/"))
