@@ -11,10 +11,10 @@ namespace MyHttpServer.Routing
         public RoutingTable()
             => this.routes = new Dictionary<Method, Dictionary<string, Response>>()
             {
-                [Method.GET] = new(),
-                [Method.POST] = new(),
-                [Method.PUT] = new(),
-                [Method.DELETE] = new(),
+                [Method.GET] = new(StringComparer.InvariantCultureIgnoreCase),
+                [Method.POST] = new(StringComparer.InvariantCultureIgnoreCase),
+                [Method.PUT] = new(StringComparer.InvariantCultureIgnoreCase),
+                [Method.DELETE] = new(StringComparer.InvariantCultureIgnoreCase),
             };
 
         public IRoutingTable Map(string url, Method method, Response response)
