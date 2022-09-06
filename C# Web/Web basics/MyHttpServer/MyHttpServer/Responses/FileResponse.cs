@@ -10,7 +10,7 @@ namespace MyHttpServer.Responses
             :base(StatusCode.OK)
         {
             FileName = fileName;
-            Headers.Add(Header.ContentType, ContentType.PlainText);
+            Headers.Add(Header.ContentType, ContentType.FileContent);
         }
 
         public override string ToString()
