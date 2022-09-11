@@ -6,10 +6,10 @@ namespace MyHttpServer.Routing
 {
     public class RoutingTable : IRoutingTable
     {
-        private readonly Dictionary<Method, Dictionary<string, Response>> routes;
+        private readonly Dictionary<Method, Dictionary<string, Func<Request, Response>>> routes;
 
         public RoutingTable()
-            => this.routes = new Dictionary<Method, Dictionary<string, Response>>()
+            => this.routes = new ()
             {
                 [Method.GET] = new(StringComparer.InvariantCultureIgnoreCase),
                 [Method.POST] = new(StringComparer.InvariantCultureIgnoreCase),
@@ -17,32 +17,64 @@ namespace MyHttpServer.Routing
                 [Method.DELETE] = new(StringComparer.InvariantCultureIgnoreCase),
             };
 
-        public IRoutingTable Map(string url, Method method, Response response)
-            => method switch
+        public IRoutingTable Map(
+            Method method,
+            string path,
+            Func<Request, Response> responseFunction)
+        {
+            Guard.AgainstNull(path, nameof(path));
+            Guard.AgainstNull(responseFunction, nameof(responseFunction));
+
+            switch (method)
             {
-                Method.GET => this.MapGet(url, response),
-                Method.POST => this.MapPost(url, response),
-                _ => throw new InvalidOperationException($"Method {method} is not supported.")
-            };
+                case Method.GET:
+                    return MapGet(path, responseFunction);
+                case Method.POST:
+                    return MapPost(path, responseFunction);
+                case Method.PUT:
+                    return MapPut(path, responseFunction);
+                case Method.DELETE:
+                    return MapDelete(path, responseFunction);
+                default:
+                    throw new ArgumentOutOfRangeException($"The method {nameof(method)} is not supported");
+            }
+        }
 
-        public IRoutingTable MapGet(string url, Response response)
+        private IRoutingTable MapGet(
+            string path,
+            Func<Request, Response> responseFunction)
         {
-            Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
+            routes[Method.GET][path] = responseFunction;
 
-            this.routes[Method.GET][url] = response;
             return this;
         }
 
-        public IRoutingTable MapPost(string url, Response response)
+        private IRoutingTable MapPost(
+            string path,
+            Func<Request, Response> responseFunction)
         {
-            Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
+            routes[Method.POST][path] = responseFunction;
 
-            this.routes[Method.POST][url] = response;
             return this;
         }
 
+        private IRoutingTable MapPut(
+            string path,
+            Func<Request, Response> responseFunction)
+        {
+            routes[Method.PUT][path] = responseFunction;
+
+            return this;
+        }
+
+        private IRoutingTable MapDelete(
+            string path,
+            Func<Request, Response> responseFunction)
+        {
+            routes[Method.DELETE][path] = responseFunction;
+
+            return this;
+        }
         public Response MatchRequest(Request request)
         {
             var requestMethod = request.Method;
@@ -53,7 +85,9 @@ namespace MyHttpServer.Routing
                 return new NotFoundResponse();
             }
 
-            return this.routes[requestMethod][requestUrl];
+            var responseFunction = this.routes[requestMethod][requestUrl];
+
+            return responseFunction(request);
         }
     }
 }

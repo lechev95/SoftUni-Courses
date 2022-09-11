@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHttpServer", "MyHttpServer\MyHttpServer.csproj", "{B930FD3C-70BF-47F3-AADC-5C237737F0CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHttpServer.Server", "MyHttpServer\MyHttpServer.Server.csproj", "{B930FD3C-70BF-47F3-AADC-5C237737F0CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79D33373-9CC0-4C1D-85A1-699598EEF83A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHttpServer.Demo", "Demo\MyHttpServer.Demo.csproj", "{0001A06A-032A-4396-A721-BA74800FC08E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{B930FD3C-70BF-47F3-AADC-5C237737F0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B930FD3C-70BF-47F3-AADC-5C237737F0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B930FD3C-70BF-47F3-AADC-5C237737F0CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0001A06A-032A-4396-A721-BA74800FC08E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0001A06A-032A-4396-A721-BA74800FC08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0001A06A-032A-4396-A721-BA74800FC08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0001A06A-032A-4396-A721-BA74800FC08E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
