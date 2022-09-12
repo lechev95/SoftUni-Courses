@@ -13,6 +13,7 @@ namespace BasicHttpWebServer.Server.HTTP
 
         public StatusCode StatusCode { get; init; }
         public HeaderCollection Headers { get; } = new HeaderCollection();
+        public CookieCollection Cookies { get; } = new CookieCollection();
         public string Body { get; set; }
         public Action<Request, Response> PreRenderAction { get; protected set; }
 
@@ -24,6 +25,11 @@ namespace BasicHttpWebServer.Server.HTTP
             foreach (var header in Headers)
             {
                 result.AppendLine(header.ToString());
+            }
+
+            foreach (var cookie in Cookies)
+            {
+                result.AppendLine($"{Header.SetCookie}: {cookie}");
             }
 
             result.AppendLine();
