@@ -6,7 +6,9 @@ namespace BasicHttpWebServer.Server.Routing
 {
     public class RoutingTable : IRoutingTable
     {
-        private readonly Dictionary<Method, Dictionary<string, Response>> routes;
+        private readonly Dictionary<
+            Method, 
+            Dictionary<string, Func<Request, Response>>> routes;
 
         public RoutingTable() => routes = new()
         {
@@ -16,38 +18,37 @@ namespace BasicHttpWebServer.Server.Routing
             [Method.DELETE] = new()
         };
         public IRoutingTable Map(
-            string url,
             Method method,
-            Response response)
-            => method switch
+            string path,
+            Func<Request, Response> responseFunction)
             {
-                Method.GET => MapGet(url, response),
-                Method.POST => MapPost(url, response),
-                _ => throw new InvalidOperationException(
-                    $"Method '{method}' is not supported.");
-            };
+            Guard.AgainstNull(path, nameof(path));
+            Guard.AgainstNull(responseFunction, nameof(responseFunction));
+
+            routes[method][path] = responseFunction;
+            return this;
+            }
 
         public IRoutingTable MapGet(
-            string url, 
-            Response response)
-        {
-            Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
+            string path,
+            Func<Request, Response> responseFunction)
+            => Map(Method.GET, path, responseFunction);
 
-            routes[Method.GET][url] = response;
-            return this;
-        }
 
         public IRoutingTable MapPost(
-            string url,
-            Response response)
-        {
-            Guard.AgainstNull(url, nameof(url));
-            Guard.AgainstNull(response, nameof(response));
+            string path,
+            Func<Request, Response> responseFunction)
+            => Map(Method.POST, path, responseFunction);
 
-            routes[Method.POST][url] = response;
-            return this;
-        }
+        public IRoutingTable MapPut(
+            string path,
+            Func<Request, Response> responseFunction)
+            => Map(Method.PUT, path, responseFunction);
+
+        public IRoutingTable MapDelete(
+            string path,
+            Func<Request, Response> responseFunction)
+            => Map(Method.DELETE, path, responseFunction);
 
         public Response MatchRequest(Request request)
         {
@@ -59,7 +60,9 @@ namespace BasicHttpWebServer.Server.Routing
             {
                 return new NotFoundResponse();
             }
-            return routes[requestMethod][requestUrl];
+
+            var responseFunction = routes[requestMethod][requestUrl];
+            return responseFunction(request);
         }
     }
 }
