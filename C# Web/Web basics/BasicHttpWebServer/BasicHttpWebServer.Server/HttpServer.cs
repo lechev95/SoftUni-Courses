@@ -54,8 +54,8 @@ namespace BasicHttpWebServer.Server
                     var request = Request.Parse(requestText);
                     var response = routingTable.MatchRequest(request);
 
-                    if (response.PreRenderAction != null)
-                        response.PreRenderAction(request, response);
+                    //if (response.PreRenderAction != null)
+                    //    response.PreRenderAction(request, response);
 
                     AddSession(request, response);
 
