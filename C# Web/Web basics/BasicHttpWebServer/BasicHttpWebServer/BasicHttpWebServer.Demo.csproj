@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <None Remove="Views\Home\HtmlFormPost.cshtml" />
   </ItemGroup>
 
 </Project>
