@@ -9,11 +9,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BasicHttpWebServer.Server\BasicHttpWebServer.Server.csproj" />
+	  <Content Include="Views\**\*.*">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>
