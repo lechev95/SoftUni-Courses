@@ -1,5 +1,7 @@
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Infrastructure.Data;
+using LibraryManagementSystem.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem
@@ -18,13 +20,19 @@ namespace LibraryManagementSystem
 
             builder.Services.AddDefaultIdentity<User>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequiredLength = 5;
+                options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedAccount");
+                options.SignIn.RequireConfirmedEmail = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedEmail"); ;
+                options.SignIn.RequireConfirmedPhoneNumber = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedPhoneNumber"); ;
+                options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:RequiredLength"); ;
+                options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:RequireNonAlphanumeric"); ;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
-
-            builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
