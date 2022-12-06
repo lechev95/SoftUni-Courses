@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagementSystem_FinalWebProject.Models
+namespace LibraryManagementSystem.Models
 {
     public class RegisterViewModel
     {

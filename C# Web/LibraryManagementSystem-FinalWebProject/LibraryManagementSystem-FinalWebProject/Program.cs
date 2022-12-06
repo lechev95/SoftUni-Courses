@@ -1,9 +1,8 @@
-using LibraryManagementSystem_FinalWebProject.Data;
-using LibraryManagementSystem_FinalWebProject.Data.Models;
-using Microsoft.AspNetCore.Identity;
+using LibraryManagementSystem.Data;
+using LibraryManagementSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagementSystem_FinalWebProject
+namespace LibraryManagementSystem
 {
     public class Program
     {

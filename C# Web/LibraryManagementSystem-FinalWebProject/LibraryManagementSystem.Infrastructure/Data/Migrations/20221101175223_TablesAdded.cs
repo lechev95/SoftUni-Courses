@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LibraryManagementSystem_FinalWebProject.Migrations
+namespace LibraryManagementSystem.Migrations
 {
     public partial class TablesAdded : Migration
     {

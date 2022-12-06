@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LibraryManagementSystem_FinalWebProject.Areas.Identity.Pages.Account
+namespace LibraryManagementSystem.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {

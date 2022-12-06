@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace LibraryManagementSystem_FinalWebProject.Data.Models
+namespace LibraryManagementSystem.Infrastructure.Data
 {
     public class User : IdentityUser
     {

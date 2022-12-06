@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagementSystem_FinalWebProject.Data.Models
+namespace LibraryManagementSystem.Infrastructure.Data
 {
     public class Genre
     {

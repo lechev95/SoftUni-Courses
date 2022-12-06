@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LibraryManagementSystem_FinalWebProject.Data.Models
+namespace LibraryManagementSystem.Infrastructure.Data
 {
     public class UserBook
     {

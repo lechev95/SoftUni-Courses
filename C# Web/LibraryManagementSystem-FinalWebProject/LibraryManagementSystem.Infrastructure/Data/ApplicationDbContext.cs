@@ -1,8 +1,8 @@
-﻿using LibraryManagementSystem_FinalWebProject.Data.Models;
+﻿using LibraryManagementSystem.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagementSystem_FinalWebProject.Data
+namespace LibraryManagementSystem.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

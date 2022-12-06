@@ -1,10 +1,10 @@
-﻿using LibraryManagementSystem_FinalWebProject.Data.Models;
-using LibraryManagementSystem_FinalWebProject.Models;
+﻿using LibraryManagementSystem.Infrastructure.Data;
+using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagementSystem_FinalWebProject.Controllers
+namespace LibraryManagementSystem.Controllers
 {
     [Authorize]
     public class UserController : Controller
