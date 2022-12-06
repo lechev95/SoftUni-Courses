@@ -1,5 +1,4 @@
 ﻿using LibraryManagementSystem_FinalWebProject.Data.Models;
-using LibraryManagementSystem_FinalWebProject.GlobalConstants;
 using LibraryManagementSystem_FinalWebProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -68,7 +67,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
                 }
             }
 
-            ModelState.AddModelError("", ErrorMessages.InvalidLoginError);
+            ModelState.AddModelError("", "Invalid login");
             return View(model);
         }
 

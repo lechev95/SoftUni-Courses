@@ -12,5 +12,6 @@ namespace LibraryManagementSystem_FinalWebProject.Data.Models
         public string LastName { get; set; } = null!;
         public string? Education { get; set; }
         public string? Biography { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

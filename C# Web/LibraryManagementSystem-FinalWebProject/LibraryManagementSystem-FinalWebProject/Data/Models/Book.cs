@@ -30,6 +30,6 @@ namespace LibraryManagementSystem_FinalWebProject.Data.Models
         public int GenreId { get; set; }
         public Genre Genre { get; set; } = null!;
         public ICollection<UserBook>? UsersBooks { get; set; } = new List<UserBook>();
-
+        public bool IsActive { get; set; } = true;
     }
 }
