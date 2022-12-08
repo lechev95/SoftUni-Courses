@@ -1,4 +1,5 @@
-﻿using LibraryManagementSystem.Infrastructure.Data.Common;
+﻿using LibraryManagementSystem.Core.Exceptions;
+using LibraryManagementSystem.Infrastructure.Data.Common;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -7,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IRepository, Repository>();
-            //services.AddScoped<IGuard, Guard>();
+            services.AddScoped<IGuard, Guard>();
 
             return services;
         }

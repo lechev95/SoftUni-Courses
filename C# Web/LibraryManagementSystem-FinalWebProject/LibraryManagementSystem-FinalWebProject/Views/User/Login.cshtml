@@ -1,14 +1,20 @@
-﻿@model LoginViewModel
+﻿@using LibraryManagementSystem.Models
+@model LoginViewModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Вписване";
 }
-
-
-<h1 class="text-center">@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <section>
+<body class="bg-image"
+      style="background-image: url('https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/ShuInkWeb/ShuInkWeb/wwwroot/images/Abstract-backgroundBLur.jpg');
+            background-attachment:fixed;">
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+            <h1 class="text-center">@ViewData["Title"]</h1>
             <form id="account" method="post">
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -23,9 +29,14 @@
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
                 <div class="text-center">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="btn btn-primary">Вход</button>
                 </div>
             </form>
-        </section>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
+</body>

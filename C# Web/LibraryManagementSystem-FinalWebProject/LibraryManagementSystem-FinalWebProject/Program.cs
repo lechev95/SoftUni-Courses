@@ -1,7 +1,6 @@
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.ModelBinders;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem
