@@ -28,6 +28,8 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
             user.PasswordHash =
                  hasher.HashPassword(user, "librarian123");
 
+            users.Add(user);
+
             user = new IdentityUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",

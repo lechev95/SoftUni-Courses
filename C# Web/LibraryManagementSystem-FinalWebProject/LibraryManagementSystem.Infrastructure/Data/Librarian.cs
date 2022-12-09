@@ -14,9 +14,9 @@ namespace LibraryManagementSystem.Infrastructure.Data
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
 
+        [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
     }
 }

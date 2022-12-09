@@ -4,6 +4,7 @@ using LibraryManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221209190454_InitialSqlServerMigration")]
+    partial class InitialSqlServerMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,106 +52,6 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "Айзък",
-                            IsActive = true,
-                            LastName = "Азимов"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Роалд",
-                            IsActive = true,
-                            LastName = "Дал"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FirstName = "Роджър",
-                            IsActive = true,
-                            LastName = "Зелазни"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FirstName = "Ерих",
-                            IsActive = true,
-                            LastName = "Кестнер"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FirstName = "Астрид",
-                            IsActive = true,
-                            LastName = "Линдгрен"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FirstName = "Карл",
-                            IsActive = true,
-                            LastName = "Маркс"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            FirstName = "Айн",
-                            IsActive = true,
-                            LastName = "Ранд"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            FirstName = "Николай",
-                            IsActive = true,
-                            LastName = "Теллалов"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            FirstName = "Зигмунд",
-                            IsActive = true,
-                            LastName = "Фройд"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            FirstName = "Ерих",
-                            IsActive = true,
-                            LastName = "Фром"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            FirstName = "Робърт",
-                            IsActive = true,
-                            LastName = "Шекли"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            FirstName = "Карл",
-                            IsActive = true,
-                            LastName = "Юнг"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            FirstName = "Туве",
-                            IsActive = true,
-                            LastName = "Янсон"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            FirstName = "Светлин",
-                            IsActive = true,
-                            LastName = "Наков"
-                        });
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
@@ -219,54 +121,6 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AuthorId = 6,
-                            DateReceived = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = 10,
-                            ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/TheCapital-Marx.jpg",
-                            IsActive = true,
-                            Isbn = "9781234567897",
-                            LibrarianId = 1,
-                            Price = 8.00m,
-                            Publisher = "Verlag von Otto Meisner",
-                            Quantity = 3,
-                            RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            Title = "Капиталът"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AuthorId = 5,
-                            DateReceived = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = 2,
-                            ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Emil-Lindgren.jpg",
-                            IsActive = true,
-                            Isbn = "9786192402723",
-                            LibrarianId = 1,
-                            Price = 9.90m,
-                            Publisher = "Пан",
-                            Quantity = 7,
-                            Title = "Емил от Льонеберя"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AuthorId = 5,
-                            DateReceived = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = 2,
-                            ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Bratyata-Lindgren.jpg",
-                            IsActive = true,
-                            Isbn = "9786192405922",
-                            LibrarianId = 1,
-                            Price = 14.90m,
-                            Publisher = "Пан",
-                            Quantity = 2,
-                            Title = "Братята с лъвски сърца"
-                        });
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Genre", b =>
@@ -288,122 +142,6 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GenreName = "Алманаси",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GenreName = "Детски книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GenreName = "Документални книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            GenreName = "Енциклопедии",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            GenreName = "Исторически хроники",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            GenreName = "Книги за антиутопия",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            GenreName = "Криминална литература",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            GenreName = "Научни книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 9,
-                            GenreName = "Научнофантастични книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 10,
-                            GenreName = "Политическа литература",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 11,
-                            GenreName = "Религиозна литература",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 12,
-                            GenreName = "Ръкописи",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 13,
-                            GenreName = "Сатирични книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 14,
-                            GenreName = "Сборници",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 15,
-                            GenreName = "Стихосбирки",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 16,
-                            GenreName = "Учебници",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 17,
-                            GenreName = "Фентъзи книги",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 18,
-                            GenreName = "Художествена литература",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = 19,
-                            GenreName = "Шпионски романи",
-                            IsActive = true
-                        });
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Librarian", b =>
@@ -428,14 +166,6 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Librarians");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PhoneNumber = "+359888888888",
-                            UserId = "lib12856-c198-4129-b3f3-b893d8395082"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -553,40 +283,6 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "lib12856-c198-4129-b3f3-b893d8395082",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "47799250-b045-48ef-a789-9b7de482e523",
-                            Email = "librarian@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "librarian@mail.com",
-                            NormalizedUserName = "librarian@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEObw3wVApx4HNdy27MlZBAMwxRSqHCj6AvEpdH0gthKKl0m4diqWNPgOTf2+023S3A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "03f4c33c-59ba-4fda-b89b-ca483c25f052",
-                            TwoFactorEnabled = false,
-                            UserName = "librarian@mail.com"
-                        },
-                        new
-                        {
-                            Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "121cc3bd-0131-4001-ae97-cff6bc1eb7d8",
-                            Email = "client@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "client@mail.com",
-                            NormalizedUserName = "client@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAELig/Wv/l98hQ44maCdKN60v/oQ5DLSQLTGqQ7rACimTj4GGH3/3cZK1Mzt9vdGcdQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "178853c3-e882-4452-be0f-2f00ab6f2dd2",
-                            TwoFactorEnabled = false,
-                            UserName = "client@mail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

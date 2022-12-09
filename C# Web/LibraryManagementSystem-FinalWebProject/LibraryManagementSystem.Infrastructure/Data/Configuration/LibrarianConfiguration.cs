@@ -11,7 +11,7 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
             {
                 Id = 1,
                 PhoneNumber = "+359888888888",
-                UserId = "lib12856-c198-4129-b3f3-b893d8395082"
+                UserId = "lib12856-c198-4129-b3f3-b893d8395082",
             });
         }
     }
