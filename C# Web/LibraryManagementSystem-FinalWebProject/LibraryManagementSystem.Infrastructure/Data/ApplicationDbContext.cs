@@ -20,10 +20,10 @@ namespace LibraryManagementSystem.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfiguration());
-            //builder.ApplyConfiguration(new LibrarianConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
             builder.ApplyConfiguration(new AuthorConfiguration());
-            //builder.ApplyConfiguration(new BookConfiguration());
+            builder.ApplyConfiguration(new LibrarianConfiguration());
+            builder.ApplyConfiguration(new BookConfiguration());
 
             base.OnModelCreating(builder);
         }
