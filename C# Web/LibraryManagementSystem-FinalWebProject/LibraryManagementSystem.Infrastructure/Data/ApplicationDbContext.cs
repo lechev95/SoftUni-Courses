@@ -1,35 +1,28 @@
 ﻿using LibraryManagementSystem.Infrastructure.Data;
+using LibraryManagementSystem.Infrastructure.Data.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<UserBook> UsersBooks { get; set; }
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Librarian> Librarians { get; set; } = null!;
+        public DbSet<Book> Books { get; set; } = null!;
+        public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<Genre> Genres { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserBook>()
-                .HasKey(k => new { k.UserId, k.BookId });
-
-            builder.Entity<User>()
-                .Property(u => u.UserName)
-                .HasMaxLength(20)
-                .IsRequired();
-
-            builder.Entity<User>()
-                .Property(u => u.Email)
-                .HasMaxLength(60)
-                .IsRequired();
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new LibrarianConfiguration());
+            builder.ApplyConfiguration(new GenreConfiguration());
+            builder.ApplyConfiguration(new AuthorConfiguration());
 
             base.OnModelCreating(builder);
         }

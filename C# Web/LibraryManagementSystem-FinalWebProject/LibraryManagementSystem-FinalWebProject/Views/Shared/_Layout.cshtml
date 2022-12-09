@@ -22,9 +22,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a>
-                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,7 +36,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Информационна система за управление на библиотеки - <a asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a>
+            &copy; 2022 
+            @if(DateTime.Now.Year != 2022)
+            {
+                <span>- @DateTime.Now.Year</span>
+            }
+            - Информационна система за управление на библиотеки
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

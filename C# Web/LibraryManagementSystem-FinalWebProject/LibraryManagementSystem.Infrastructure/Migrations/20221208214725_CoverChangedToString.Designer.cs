@@ -3,6 +3,7 @@ using System;
 using LibraryManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LibraryManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221208214725_CoverChangedToString")]
+    partial class CoverChangedToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace LibraryManagementSystem.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.Author", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +61,7 @@ namespace LibraryManagementSystem.Migrations
                     b.ToTable("authors", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.Book", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,9 +74,9 @@ namespace LibraryManagementSystem.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("author_id");
 
-                    b.Property<byte[]>("Cover")
+                    b.Property<string>("Cover")
                         .IsRequired()
-                        .HasColumnType("bytea")
+                        .HasColumnType("text")
                         .HasColumnName("cover");
 
                     b.Property<DateTime>("DateReceived")
@@ -129,7 +131,7 @@ namespace LibraryManagementSystem.Migrations
                     b.ToTable("books", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.Genre", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +155,7 @@ namespace LibraryManagementSystem.Migrations
                     b.ToTable("genres", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.User", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -235,7 +237,7 @@ namespace LibraryManagementSystem.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.UserBook", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.UserBook", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("text")
@@ -422,16 +424,16 @@ namespace LibraryManagementSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.Book", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
                 {
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.Author", "Author")
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_books_authors_author_id");
 
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.Genre", "Genre")
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -443,16 +445,16 @@ namespace LibraryManagementSystem.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.UserBook", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.UserBook", b =>
                 {
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.Book", "Book")
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.Book", "Book")
                         .WithMany("UsersBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_users_books_books_book_id");
 
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.User", "User")
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", "User")
                         .WithMany("UsersBooks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -476,7 +478,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.User", null)
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -486,7 +488,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.User", null)
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -503,7 +505,7 @@ namespace LibraryManagementSystem.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id");
 
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.User", null)
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -513,7 +515,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem_FinalWebProject.Data.Models.User", null)
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -521,12 +523,12 @@ namespace LibraryManagementSystem.Migrations
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id");
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.Book", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
                 {
                     b.Navigation("UsersBooks");
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem_FinalWebProject.Data.Models.User", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.User", b =>
                 {
                     b.Navigation("UsersBooks");
                 });
