@@ -7,12 +7,11 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Librarian> builder)
         {
-            builder.HasData(new Librarian
+            builder.HasData(new Librarian()
             {
-
-                    Id = 1,
-                    PhoneNumber = "+359888888888",
-                    UserId = "librarian2856-c198-4129-b3f3-b893d8395082"
+                Id = 1,
+                PhoneNumber = "+359888888888",
+                UserId = "lib12856-c198-4129-b3f3-b893d8395082"
             });
         }
     }

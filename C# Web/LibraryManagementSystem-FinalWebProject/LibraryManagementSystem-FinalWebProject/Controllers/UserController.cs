@@ -9,12 +9,12 @@ namespace LibraryManagementSystem.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly SignInManager<User> signInManager;
-        private readonly UserManager<User> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
 
         public UserController(
-            SignInManager<User> _signInManager, 
-            UserManager<User> _userManager)
+            SignInManager<IdentityUser> _signInManager, 
+            UserManager<IdentityUser> _userManager)
         {
             signInManager = _signInManager;
             userManager = _userManager;
@@ -94,7 +94,7 @@ namespace LibraryManagementSystem.Controllers
                 return View(model);
             }
 
-            var user = new User()
+            var user = new IdentityUser()
             {
                 UserName = model.UserName,
                 Email = model.Email

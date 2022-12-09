@@ -18,7 +18,7 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
 
             var user = new IdentityUser()
             {
-                Id = "librarian2856-c198-4129-b3f3-b893d8395082",
+                Id = "lib12856-c198-4129-b3f3-b893d8395082",
                 UserName = "librarian@mail.com",
                 NormalizedUserName = "librarian@mail.com",
                 Email = "librarian@mail.com",

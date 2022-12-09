@@ -4,9 +4,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LibraryManagementSystem.Migrations
+namespace LibraryManagementSystem.Infrastructure.Migrations
 {
-    public partial class TablesAdded : Migration
+    public partial class SeedDbase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,9 +29,9 @@ namespace LibraryManagementSystem.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "text", nullable: false),
-                    user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
                     password_hash = table.Column<string>(type: "text", nullable: true),
@@ -58,7 +58,8 @@ namespace LibraryManagementSystem.Migrations
                     first_name = table.Column<string>(type: "text", nullable: false),
                     last_name = table.Column<string>(type: "text", nullable: false),
                     education = table.Column<string>(type: "text", nullable: true),
-                    biography = table.Column<string>(type: "text", nullable: true)
+                    biography = table.Column<string>(type: "text", nullable: true),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,7 +72,8 @@ namespace LibraryManagementSystem.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    genre_name = table.Column<string>(type: "text", nullable: false)
+                    genre_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,21 +187,44 @@ namespace LibraryManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "librarians",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    phone_number = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_librarians", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_librarians_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "books",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     isbn = table.Column<string>(type: "text", nullable: false),
-                    title = table.Column<string>(type: "text", nullable: false),
+                    title = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     quantity = table.Column<int>(type: "integer", nullable: false),
-                    price = table.Column<decimal>(type: "numeric", nullable: false),
-                    publisher = table.Column<string>(type: "text", nullable: false),
+                    price = table.Column<decimal>(type: "money", precision: 18, scale: 2, nullable: false),
+                    publisher = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     date_received = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
-                    cover = table.Column<byte[]>(type: "bytea", nullable: false),
+                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    image_url = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     author_id = table.Column<int>(type: "integer", nullable: false),
-                    genre_id = table.Column<int>(type: "integer", nullable: false)
+                    genre_id = table.Column<int>(type: "integer", nullable: false),
+                    renter_id = table.Column<string>(type: "text", nullable: true),
+                    librarian_id = table.Column<int>(type: "integer", nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,30 +241,69 @@ namespace LibraryManagementSystem.Migrations
                         principalTable: "genres",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_books_librarians_librarian_id",
+                        column: x => x.librarian_id,
+                        principalTable: "librarians",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_books_users_renter_id",
+                        column: x => x.renter_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "users_books",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "id", "access_failed_count", "concurrency_stamp", "email", "email_confirmed", "lockout_enabled", "lockout_end", "normalized_email", "normalized_user_name", "password_hash", "phone_number", "phone_number_confirmed", "security_stamp", "two_factor_enabled", "user_name" },
+                values: new object[] { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "a8284f0c-b61e-4f97-bf17-acd8d98fcfee", "client@mail.com", false, false, null, "client@mail.com", "client@mail.com", "AQAAAAEAACcQAAAAELKikjZu7H2Q8r5VjjMCkoXCZjG4Uznq82+/Z+YozSzOgqukSEinAXAVVYN41ehshg==", null, false, "4f90bedb-7f21-4650-bc4e-42d13be101c6", false, "client@mail.com" });
+
+            migrationBuilder.InsertData(
+                table: "authors",
+                columns: new[] { "id", "biography", "education", "first_name", "is_active", "last_name" },
+                values: new object[,]
                 {
-                    user_id = table.Column<string>(type: "text", nullable: false),
-                    book_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
+                    { 1, null, null, "Айзък", true, "Азимов" },
+                    { 2, null, null, "Роалд", true, "Дал" },
+                    { 3, null, null, "Роджър", true, "Зелазни" },
+                    { 4, null, null, "Ерих", true, "Кестнер" },
+                    { 5, null, null, "Астрид", true, "Линдгрен" },
+                    { 6, null, null, "Карл", true, "Маркс" },
+                    { 7, null, null, "Айн", true, "Ранд" },
+                    { 8, null, null, "Николай", true, "Теллалов" },
+                    { 9, null, null, "Зигмунд", true, "Фройд" },
+                    { 10, null, null, "Ерих", true, "Фром" },
+                    { 11, null, null, "Робърт", true, "Шекли" },
+                    { 12, null, null, "Карл", true, "Юнг" },
+                    { 13, null, null, "Туве", true, "Янсон" },
+                    { 14, null, null, "Светлин", true, "Наков" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "genres",
+                columns: new[] { "id", "genre_name", "is_active" },
+                values: new object[,]
                 {
-                    table.PrimaryKey("pk_users_books", x => new { x.user_id, x.book_id });
-                    table.ForeignKey(
-                        name: "fk_users_books_books_book_id",
-                        column: x => x.book_id,
-                        principalTable: "books",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_users_books_users_user_id",
-                        column: x => x.user_id,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                    { 1, "Алманаси", true },
+                    { 2, "Детски книги", true },
+                    { 3, "Документални книги", true },
+                    { 4, "Енциклопедии", true },
+                    { 5, "Исторически хроники", true },
+                    { 6, "Книги за антиутопия", true },
+                    { 7, "Криминална литература", true },
+                    { 8, "Научни книги", true },
+                    { 9, "Научнофантастични книги", true },
+                    { 10, "Политическа литература", true },
+                    { 11, "Религиозна литература", true },
+                    { 12, "Ръкописи", true },
+                    { 13, "Сатирични книги", true },
+                    { 14, "Сборници", true },
+                    { 15, "Стихосбирки", true },
+                    { 16, "Учебници", true },
+                    { 17, "Фентъзи книги", true },
+                    { 18, "Художествена литература", true },
+                    { 19, "Шпионски романи", true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -290,9 +354,19 @@ namespace LibraryManagementSystem.Migrations
                 column: "genre_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_users_books_book_id",
-                table: "users_books",
-                column: "book_id");
+                name: "ix_books_librarian_id",
+                table: "books",
+                column: "librarian_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_books_renter_id",
+                table: "books",
+                column: "renter_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_librarians_user_id",
+                table: "librarians",
+                column: "user_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -313,22 +387,22 @@ namespace LibraryManagementSystem.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "users_books");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
                 name: "books");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "authors");
 
             migrationBuilder.DropTable(
                 name: "genres");
+
+            migrationBuilder.DropTable(
+                name: "librarians");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

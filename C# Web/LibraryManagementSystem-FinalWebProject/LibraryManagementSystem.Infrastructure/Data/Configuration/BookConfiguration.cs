@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Infrastructure.Data.Configuration
 {
@@ -31,10 +26,39 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
                     Isbn = "9781234567897",
                     Publisher = "Verlag von Otto Meisner",
                     Price = 8.00M,
-                    DateReceived = new DateTime(2015, 12, 31),
                     Quantity = 3,
-                    ImageUrl = 
+                    ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/TheCapital-Marx.jpg"
                 },
+
+                new Book()
+                {
+                    Id = 2,
+                    AuthorId = 5,
+                    Title = "Емил от Льонеберя",
+                    GenreId = 2,
+                    IsActive = true,
+                    LibrarianId = 1,
+                    Isbn = "9786192402723",
+                    Publisher = "Пан",
+                    Price = 9.90M,
+                    Quantity = 7,
+                    ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Emil-Lindgren.jpg"
+                },
+
+                new Book()
+                {
+                    Id = 3,
+                    AuthorId = 5,
+                    Title = "Братята с лъвски сърца",
+                    GenreId = 2,
+                    IsActive = true,
+                    LibrarianId = 1,
+                    Isbn = "9786192405922",
+                    Publisher = "Пан",
+                    Price = 14.90M,
+                    Quantity = 2,
+                    ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Bratyata-Lindgren.jpg"
+                }
             };
 
             return books;

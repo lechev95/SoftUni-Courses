@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LibraryManagementSystem.Migrations
+namespace LibraryManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221208214725_CoverChangedToString")]
-    partial class CoverChangedToString
+    [Migration("20221209141856_SeedDbase")]
+    partial class SeedDbase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,106 @@ namespace LibraryManagementSystem.Migrations
                         .HasName("pk_authors");
 
                     b.ToTable("authors", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Айзък",
+                            IsActive = true,
+                            LastName = "Азимов"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Роалд",
+                            IsActive = true,
+                            LastName = "Дал"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Роджър",
+                            IsActive = true,
+                            LastName = "Зелазни"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Ерих",
+                            IsActive = true,
+                            LastName = "Кестнер"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Астрид",
+                            IsActive = true,
+                            LastName = "Линдгрен"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Карл",
+                            IsActive = true,
+                            LastName = "Маркс"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Айн",
+                            IsActive = true,
+                            LastName = "Ранд"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Николай",
+                            IsActive = true,
+                            LastName = "Теллалов"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FirstName = "Зигмунд",
+                            IsActive = true,
+                            LastName = "Фройд"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FirstName = "Ерих",
+                            IsActive = true,
+                            LastName = "Фром"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FirstName = "Робърт",
+                            IsActive = true,
+                            LastName = "Шекли"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FirstName = "Карл",
+                            IsActive = true,
+                            LastName = "Юнг"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FirstName = "Туве",
+                            IsActive = true,
+                            LastName = "Янсон"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FirstName = "Светлин",
+                            IsActive = true,
+                            LastName = "Наков"
+                        });
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
@@ -74,23 +174,24 @@ namespace LibraryManagementSystem.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("author_id");
 
-                    b.Property<string>("Cover")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("cover");
-
                     b.Property<DateTime>("DateReceived")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("date_received");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("description");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("integer")
                         .HasColumnName("genre_id");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("image_url");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")
@@ -101,22 +202,33 @@ namespace LibraryManagementSystem.Migrations
                         .HasColumnType("text")
                         .HasColumnName("isbn");
 
+                    b.Property<int>("LibrarianId")
+                        .HasColumnType("integer")
+                        .HasColumnName("librarian_id");
+
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("money")
                         .HasColumnName("price");
 
                     b.Property<string>("Publisher")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("publisher");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("quantity");
 
+                    b.Property<string>("RenterId")
+                        .HasColumnType("text")
+                        .HasColumnName("renter_id");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("title");
 
                     b.HasKey("Id")
@@ -127,6 +239,12 @@ namespace LibraryManagementSystem.Migrations
 
                     b.HasIndex("GenreId")
                         .HasDatabaseName("ix_books_genre_id");
+
+                    b.HasIndex("LibrarianId")
+                        .HasDatabaseName("ix_books_librarian_id");
+
+                    b.HasIndex("RenterId")
+                        .HasDatabaseName("ix_books_renter_id");
 
                     b.ToTable("books", (string)null);
                 });
@@ -142,7 +260,8 @@ namespace LibraryManagementSystem.Migrations
 
                     b.Property<string>("GenreName")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("genre_name");
 
                     b.Property<bool>("IsActive")
@@ -153,107 +272,151 @@ namespace LibraryManagementSystem.Migrations
                         .HasName("pk_genres");
 
                     b.ToTable("genres", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GenreName = "Алманаси",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GenreName = "Детски книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GenreName = "Документални книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            GenreName = "Енциклопедии",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            GenreName = "Исторически хроники",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            GenreName = "Книги за антиутопия",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 7,
+                            GenreName = "Криминална литература",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 8,
+                            GenreName = "Научни книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 9,
+                            GenreName = "Научнофантастични книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 10,
+                            GenreName = "Политическа литература",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 11,
+                            GenreName = "Религиозна литература",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 12,
+                            GenreName = "Ръкописи",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 13,
+                            GenreName = "Сатирични книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 14,
+                            GenreName = "Сборници",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 15,
+                            GenreName = "Стихосбирки",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 16,
+                            GenreName = "Учебници",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 17,
+                            GenreName = "Фентъзи книги",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 18,
+                            GenreName = "Художествена литература",
+                            IsActive = true
+                        },
+                        new
+                        {
+                            Id = 19,
+                            GenreName = "Шпионски романи",
+                            IsActive = true
+                        });
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.User", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Librarian", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("access_failed_count");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text")
-                        .HasColumnName("concurrency_stamp");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("email");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("email_confirmed");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean")
-                        .HasColumnName("lockout_enabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lockout_end");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("normalized_email");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("normalized_user_name");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text")
-                        .HasColumnName("password_hash");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)")
                         .HasColumnName("phone_number");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("phone_number_confirmed");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text")
-                        .HasColumnName("security_stamp");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean")
-                        .HasColumnName("two_factor_enabled");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("user_name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_asp_net_users");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.UserBook", b =>
-                {
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("user_id");
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("integer")
-                        .HasColumnName("book_id");
+                    b.HasKey("Id")
+                        .HasName("pk_librarians");
 
-                    b.HasKey("UserId", "BookId")
-                        .HasName("pk_users_books");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_librarians_user_id");
 
-                    b.HasIndex("BookId")
-                        .HasDatabaseName("ix_users_books_book_id");
-
-                    b.ToTable("users_books", (string)null);
+                    b.ToTable("librarians", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -316,6 +479,104 @@ namespace LibraryManagementSystem.Migrations
                         .HasDatabaseName("ix_asp_net_role_claims_role_id");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
+                        .HasColumnName("id");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("access_failed_count");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text")
+                        .HasColumnName("concurrency_stamp");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("email");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("email_confirmed");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("lockout_enabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("lockout_end");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("normalized_email");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("normalized_user_name");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text")
+                        .HasColumnName("password_hash");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("phone_number_confirmed");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text")
+                        .HasColumnName("security_stamp");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("two_factor_enabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("user_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_asp_net_users");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a8284f0c-b61e-4f97-bf17-acd8d98fcfee",
+                            Email = "client@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "client@mail.com",
+                            NormalizedUserName = "client@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAELKikjZu7H2Q8r5VjjMCkoXCZjG4Uznq82+/Z+YozSzOgqukSEinAXAVVYN41ehshg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4f90bedb-7f21-4650-bc4e-42d13be101c6",
+                            TwoFactorEnabled = false,
+                            UserName = "client@mail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -434,34 +695,41 @@ namespace LibraryManagementSystem.Migrations
                         .HasConstraintName("fk_books_authors_author_id");
 
                     b.HasOne("LibraryManagementSystem.Infrastructure.Data.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_books_genres_genre_id");
 
+                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.Librarian", "Librarian")
+                        .WithMany()
+                        .HasForeignKey("LibrarianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_books_librarians_librarian_id");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Renter")
+                        .WithMany()
+                        .HasForeignKey("RenterId")
+                        .HasConstraintName("fk_books_users_renter_id");
+
                     b.Navigation("Author");
 
                     b.Navigation("Genre");
+
+                    b.Navigation("Librarian");
+
+                    b.Navigation("Renter");
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.UserBook", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Librarian", b =>
                 {
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.Book", "Book")
-                        .WithMany("UsersBooks")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_users_books_books_book_id");
-
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", "User")
-                        .WithMany("UsersBooks")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_users_books_users_user_id");
-
-                    b.Navigation("Book");
+                        .HasConstraintName("fk_librarians_users_user_id");
 
                     b.Navigation("User");
                 });
@@ -478,7 +746,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,7 +756,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -505,7 +773,7 @@ namespace LibraryManagementSystem.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_roles_asp_net_roles_role_id");
 
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -515,7 +783,7 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LibraryManagementSystem.Infrastructure.Data.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -523,14 +791,9 @@ namespace LibraryManagementSystem.Migrations
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id");
                 });
 
-            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Book", b =>
+            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.Genre", b =>
                 {
-                    b.Navigation("UsersBooks");
-                });
-
-            modelBuilder.Entity("LibraryManagementSystem.Infrastructure.Data.User", b =>
-                {
-                    b.Navigation("UsersBooks");
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

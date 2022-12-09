@@ -29,12 +29,10 @@ namespace LibraryManagementSystem.Infrastructure.Data
         [StringLength(50)]
         public string Publisher { get; set; } = null!;
 
-        [Required]
         public DateTime DateReceived { get; set; }
 
-        [Required]
         [StringLength(500)]
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; } 
 
         [Required]
         [StringLength(200)]
