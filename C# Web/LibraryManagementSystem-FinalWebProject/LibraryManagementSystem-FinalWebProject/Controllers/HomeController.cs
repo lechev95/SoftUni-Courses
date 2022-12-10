@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,9 +7,18 @@ namespace LibraryManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IBookService bookService;
+
+        public HomeController(IBookService _bookService)
         {
-            return View();
+            bookService = _bookService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await bookService.LastFiveBooks();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
