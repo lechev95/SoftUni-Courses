@@ -18,5 +18,7 @@ namespace LibraryManagementSystem.Infrastructure.Data
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; } = null!;
+
+        public bool IsActive { get; set; } = true;
     }
 }
