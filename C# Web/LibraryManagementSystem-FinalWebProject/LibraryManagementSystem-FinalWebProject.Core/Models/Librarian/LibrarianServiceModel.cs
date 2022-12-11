@@ -6,7 +6,10 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Models.Librarian
     {
         [Display(Name = "ИД на служител")]
         public int Id { get; set; }
+        [Required]
         [Display(Name = "Телефон")]
+        [StringLength(15, MinimumLength = 7)]
+        [Phone]
         public string PhoneNumber { get; set; } = null!;
         [Display(Name = "Потребителско ИД")]
         public string UserId { get; set; } = null!;

@@ -1,4 +1,5 @@
-﻿using LibraryManagementSystem.Infrastructure.Data;
+﻿using LibraryManagementSystem.Core.Constants;
+using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,7 @@ namespace LibraryManagementSystem.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            TempData[MessageConstant.SuccessMessage] = "Успешно излязохте от профила си";
             return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", string.Empty));
         }
 
@@ -62,12 +64,14 @@ namespace LibraryManagementSystem.Controllers
 
                 if (result.Succeeded)
                 {
+                    TempData[MessageConstant.SuccessMessage] = "Добре дошли";
                     //TO-DO: Redirect to home page for logged users
                     return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", string.Empty));
                 }
             }
 
             ModelState.AddModelError("", "Invalid login");
+            TempData[MessageConstant.ErrorMessage] = "Неуспешна аутентикация";
             return View(model);
         }
 

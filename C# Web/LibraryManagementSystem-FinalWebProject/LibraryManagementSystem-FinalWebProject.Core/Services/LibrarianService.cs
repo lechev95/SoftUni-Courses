@@ -15,6 +15,18 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             repo = _repo;
         }
 
+        public async Task Create(string userId, string phoneNumber)
+        {
+            var librarian = new Librarian()
+            {
+                UserId = userId,
+                PhoneNumber = phoneNumber
+            };
+
+            await repo.AddAsync(librarian);
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<LibrarianQueryModel> GetLibrarians()
         {
             var result = new LibrarianQueryModel();
@@ -31,6 +43,12 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
                             .ToListAsync();
 
             return result;
+        }
+
+        public async Task<bool> UserWithPhoneNumberExists(string phoneNumber)
+        {
+            return await repo.All<Librarian>()
+                .AnyAsync(l => l.PhoneNumber == phoneNumber);
         }
     }
 }
