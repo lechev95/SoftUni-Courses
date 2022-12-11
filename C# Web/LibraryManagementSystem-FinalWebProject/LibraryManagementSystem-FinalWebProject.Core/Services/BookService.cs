@@ -64,6 +64,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         {
             var book = new Book()
             {
+                Isbn = model.Isbn,
                 AuthorId = model.AuthorId,
                 GenreId = model.GenreId,
                 PublisherId = model.PublisherId,
