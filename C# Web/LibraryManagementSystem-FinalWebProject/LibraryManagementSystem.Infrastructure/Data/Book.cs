@@ -14,7 +14,7 @@ namespace LibraryManagementSystem.Infrastructure.Data
         public string Isbn { get; set; } = null!;
 
         [Required]
-        [StringLength(50)]
+        [StringLength(maximumLength: 50)]
         public string Title { get; set; } = null!;
 
         [Required]
@@ -24,10 +24,6 @@ namespace LibraryManagementSystem.Infrastructure.Data
         [Column(TypeName = "money")]
         [Precision(18,2)]
         public decimal Price { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Publisher { get; set; } = null!;
 
         public DateTime DateReceived { get; set; }
 
@@ -60,6 +56,12 @@ namespace LibraryManagementSystem.Infrastructure.Data
         public int LibrarianId { get; set; }
 
         public Librarian Librarian { get; set; }
+
+        [ForeignKey(nameof(Publisher))]
+        [Required]
+        public int PublisherId { get; set; }
+
+        public Publisher Publisher { get; set; }
 
         public bool IsActive { get; set; } = true;
     }

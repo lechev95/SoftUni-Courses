@@ -24,7 +24,7 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
                     LibrarianId = 1,
                     RenterId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                     Isbn = "9781234567897",
-                    Publisher = "Verlag von Otto Meisner",
+                    PublisherId = 1,
                     Price = 8.00M,
                     Quantity = 3,
                     ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/TheCapital-Marx.jpg"
@@ -39,7 +39,7 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
                     IsActive = true,
                     LibrarianId = 1,
                     Isbn = "9786192402723",
-                    Publisher = "Пан",
+                    PublisherId = 2,
                     Price = 9.90M,
                     Quantity = 7,
                     ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Emil-Lindgren.jpg"
@@ -54,7 +54,7 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
                     IsActive = true,
                     LibrarianId = 1,
                     Isbn = "9786192405922",
-                    Publisher = "Пан",
+                    PublisherId = 2,
                     Price = 14.90M,
                     Quantity = 2,
                     ImageUrl = "https://raw.githubusercontent.com/lechev95/SoftUni-Courses/main/C%23%20Web/LibraryManagementSystem-FinalWebProject/LibraryManagementSystem-FinalWebProject/wwwroot/Images/Bratyata-Lindgren.jpg"

@@ -15,11 +15,12 @@ namespace LibraryManagementSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(configuration: new UserConfiguration());
             builder.ApplyConfiguration(configuration: new LibrarianConfiguration());
-            builder.ApplyConfiguration(new GenreConfiguration());
-            builder.ApplyConfiguration(new AuthorConfiguration());
-            builder.ApplyConfiguration(new BookConfiguration());
+            builder.ApplyConfiguration(configuration: new GenreConfiguration());
+            builder.ApplyConfiguration(configuration: new AuthorConfiguration());
+            builder.ApplyConfiguration(configuration: new BookConfiguration());
+            builder.ApplyConfiguration(configuration: new PublisherConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -31,5 +32,7 @@ namespace LibraryManagementSystem.Data
         public DbSet<Librarian> Librarians { get; set; } = null!;
 
         public DbSet<Author> Authors { get; set; } = null!;
+
+        public DbSet<Publisher> Publishers { get; set; } = null!;
     }
 }

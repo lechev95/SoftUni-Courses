@@ -27,6 +27,18 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsById(string userId)
+        {
+            return await repo.All<Librarian>()
+                .AnyAsync(l => l.UserId == userId);
+        }
+
+        public async Task<int> GetLibrarianId(string userId)
+        {
+            return (await repo.AllReadonly<Librarian>()
+                .FirstOrDefaultAsync(l => l.UserId == userId))?.Id ?? 0;
+        }
+
         public async Task<LibrarianQueryModel> GetLibrarians()
         {
             var result = new LibrarianQueryModel();
