@@ -1,12 +1,12 @@
-﻿@model GenreModel
+﻿@model PublisherModel
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
             <div class="form-group">
-                <label asp-for="GenreName"></label>
-                <input asp-for="GenreName" class="form-control" placeholder="Класичека литература...">
-                <span asp-validation-for="GenreName" class="small text-danger"></span>
+                <label asp-for="PublisherName"></label>
+                <input asp-for="PublisherName" class="form-control" placeholder="Просвета...">
+                <span asp-validation-for="PublisherName" class="small text-danger"></span>
             </div>
             <div class="text-center">
                 <input class="btn btn-primary mt-3" type="submit" value="Запази" />

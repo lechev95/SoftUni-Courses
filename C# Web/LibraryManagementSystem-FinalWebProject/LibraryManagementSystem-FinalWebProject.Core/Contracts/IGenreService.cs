@@ -5,7 +5,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
     public interface IGenreService
     {
         Task<bool> GenreExists(string genreName);
-        Task<int> Create(PublisherModel model);
+        Task<int> Create(GenreModel model);
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagementSystem_FinalWebProject.Core.Models.Genre
+namespace LibraryManagementSystem_FinalWebProject.Core.Models.Publisher
 {
     public class PublisherModel
     {

@@ -2,29 +2,27 @@
 using LibraryManagementSystem.Core.Constants;
 using LibraryManagementSystem.Extensions;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
-using LibraryManagementSystem_FinalWebProject.Core.Models.Genre;
-using Microsoft.AspNetCore.Authorization;
+using LibraryManagementSystem_FinalWebProject.Core.Models.Publisher;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem_FinalWebProject.Controllers
 {
-    [Authorize]
-    public class GenreController : Controller
+    public class PublisherController : Controller
     {
-        private readonly IGenreService genreService;
+        private readonly IPublisherService publisherService;
         private readonly ILibrarianService librarianService;
 
-        public GenreController(
-            IGenreService _genreService,
+        public PublisherController(
+            IPublisherService _publisherService,
             ILibrarianService _librarianService)
         {
-            genreService = _genreService;
+            publisherService = _publisherService;
             librarianService = _librarianService;
         }
 
         public async Task<IActionResult> All()
         {
-            GenreQueryModel? model = new GenreQueryModel();
+            PublisherQueryModel? model = new PublisherQueryModel();
 
             return View(model);
         }
@@ -39,13 +37,13 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", string.Empty));
             }
 
-            var model = new GenreModel();
+            var model = new PublisherModel();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(GenreModel model)
+        public async Task<IActionResult> Add(PublisherModel model)
         {
             if (await librarianService.ExistsById(User.Id()) == false)
             {
@@ -54,9 +52,9 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", string.Empty));
             }
 
-            if (await genreService.GenreExists(model.GenreName))
+            if (await publisherService.PublisherExists(model.PublisherName))
             {
-                ModelState.AddModelError(nameof(model.GenreName), "Жанрът вече съществува");
+                ModelState.AddModelError(nameof(model.PublisherName), "Издателят вече съществува");
             }
 
             if (!ModelState.IsValid)
@@ -66,9 +64,9 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
             int librarianId = await librarianService.GetLibrarianId(User.Id());
 
-            int id = await genreService.Create(model);
+            int id = await publisherService.Create(model);
 
-            TempData[MessageConstant.SuccessMessage] = "Успешно добавен жанр";
+            TempData[MessageConstant.SuccessMessage] = "Успешно добавен издател";
 
             return RedirectToAction(nameof(All), new { id });
         }

@@ -15,7 +15,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             repo = _repo;
         }
 
-        public async Task<int> Create(PublisherModel model)
+        public async Task<int> Create(GenreModel model)
         {
             var genre = new Genre()
             {

@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagementSystem_FinalWebProject.Core.Models.Genre
 {
-    public class PublisherQueryModel
+    public class GenreQueryModel
     {
     }
 }
