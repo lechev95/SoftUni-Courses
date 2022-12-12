@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ILibrarianService, LibrarianService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IGuard, Guard>();
 
             return services;

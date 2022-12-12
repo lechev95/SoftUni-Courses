@@ -31,7 +31,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<bool> PublisherExists(string publisherName)
         {
             return await repo.AllReadonly<Publisher>()
-                .AnyAsync(g => g.PublisherName == publisherName);
+                .AnyAsync(p => p.PublisherName == publisherName);
         }
     }
 }
