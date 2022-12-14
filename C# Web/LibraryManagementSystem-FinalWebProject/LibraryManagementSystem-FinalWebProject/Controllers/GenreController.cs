@@ -3,6 +3,7 @@ using LibraryManagementSystem.Core.Constants;
 using LibraryManagementSystem.Extensions;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Genre;
+using LibraryManagementSystem_FinalWebProject.Core.Models.Librarian;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
         public async Task<IActionResult> All()
         {
-            GenreQueryModel? model = new GenreQueryModel();
+            GenreQueryModel model = await genreService.GetGenres();
 
             return View(model);
         }

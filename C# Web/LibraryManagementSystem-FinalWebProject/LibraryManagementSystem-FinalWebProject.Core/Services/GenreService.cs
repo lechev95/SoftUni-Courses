@@ -33,5 +33,32 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             return await repo.AllReadonly<Genre>()
                 .AnyAsync(g => g.GenreName == genreName);
         }
+        public async Task<bool> GenreExistsById(int genreId)
+        {
+            return await repo.AllReadonly<Genre>()
+                .AnyAsync(g => g.Id == genreId);
+        }
+        public async Task<int> GetGenreId(int genreId)
+        {
+            return (await repo.AllReadonly<Genre>()
+                .FirstOrDefaultAsync(g => g.Id == genreId))?.Id ?? 0;
+        }
+
+        public async Task<GenreQueryModel> GetGenres()
+        {
+            var result = new GenreQueryModel();
+            var genre = repo.AllReadonly<Genre>()
+                .Where(g => g.IsActive);
+
+            result.Genres = await genre
+                            .Select(g => new GenreModel()
+                            {
+                                Id = g.Id,
+                                GenreName = g.GenreName
+                            })
+                            .ToListAsync();
+
+            return result;
+        }
     }
 }

@@ -6,6 +6,9 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
     {
         Task<bool> GenreExists(string genreName);
         Task<int> Create(GenreModel model);
+        Task<bool> GenreExistsById(int genreId);
+        Task<int> GetGenreId(int genreId);
+        Task<GenreQueryModel> GetGenres();
 
     }
 }
