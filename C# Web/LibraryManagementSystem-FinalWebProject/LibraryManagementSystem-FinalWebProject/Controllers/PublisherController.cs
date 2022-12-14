@@ -22,7 +22,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
         public async Task<IActionResult> All()
         {
-            PublisherQueryModel? model = new PublisherQueryModel();
+            PublisherQueryModel model = await publisherService.GetPublishers();
 
             return View(model);
         }

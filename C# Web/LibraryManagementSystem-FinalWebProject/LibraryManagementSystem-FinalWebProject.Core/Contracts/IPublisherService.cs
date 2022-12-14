@@ -6,5 +6,8 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
     {
         Task<bool> PublisherExists(string publisherName);
         Task<int> Create(PublisherModel model);
+        Task<bool> PublisherExistsById(int publisherId);
+        Task<int> GetPublisherId(int publisherId);
+        Task<PublisherQueryModel> GetPublishers();
     }
 }

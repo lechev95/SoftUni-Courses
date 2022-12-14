@@ -26,12 +26,11 @@
                     <option value="">Всички</option>
                     @foreach (var author in Model.Authors)
                     {
-                                    <option value="@author">@author</option>
+                         <option value="@author">@author</option>
                     }
                 </select>
             </div>
         </div>
-
         <div class="form-group col-md-3">
             <label asp-for="SearchTerm">Ключови думи</label>
             <input asp-for="SearchTerm" class="form-control" placeholder="...">

@@ -6,3 +6,25 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
+
+@if (!Model.Authors.Any())
+{
+            <h2 class="text-center">Липсват данни за автори!</h2>
+}
+
+<div class="row">
+    <table class="table table-hover text-start">
+        <thead>
+            <tr>
+                <th scope="col">ИД на автор</th>
+                <th scope="col">Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in Model.Authors)
+            {
+                            <partial name="_AuthorPartial" model="@author" />
+            }
+        </tbody>
+    </table>
+</div>
