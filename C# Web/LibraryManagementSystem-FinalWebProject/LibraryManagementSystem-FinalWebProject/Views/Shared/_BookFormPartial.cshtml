@@ -28,7 +28,7 @@
                 <select asp-for="AuthorId" class="form-control">
                     @foreach (var author in Model.Authors)
                     {
-                        <option value="@author.Id">@author.FirstName @author.LastName</option>
+                        <option value="@author.Id">@author.Name</option>
                     }
                 </select>
                 <span asp-validation-for="AuthorId" class="small text-danger"></span>

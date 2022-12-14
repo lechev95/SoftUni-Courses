@@ -4,8 +4,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
 {
     public interface IAuthorService
     {
-        Task<bool> AuthorFirstNameExists(string authorFirstName);
-        Task<bool> AuthorLastNameExists(string authorLastName);
+        Task<bool> AuthorNameExists(string authorName);
         Task<int> Create(AuthorModel model);
     }
 }

@@ -15,24 +15,17 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             repo = _repo;
         }
 
-        public async Task<bool> AuthorFirstNameExists(string authorFirstName)
+        public async Task<bool> AuthorNameExists(string authorName)
         {
             return await repo.AllReadonly<Author>()
-                .AnyAsync(a => a.FirstName == authorFirstName);
-        }
-
-        public async Task<bool> AuthorLastNameExists(string authorLastName)
-        {
-            return await repo.AllReadonly<Author>()
-                .AnyAsync(a => a.LastName == authorLastName);
+                .AnyAsync(a => a.Name == authorName);
         }
 
         public async Task<int> Create(AuthorModel model)
         {
             var author = new Author()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                Name = model.Name,
                 Biography = model.Biography,
                 Education = model.Education,
             };

@@ -18,112 +18,98 @@ namespace LibraryManagementSystem.Infrastructure.Data.Configuration
                 {
                     Id = 1,
                     IsActive = true,
-                    FirstName = "Айзък",
-                    LastName = "Азимов"
+                    Name = "Айзък Азимов"
                 },
 
                 new Author()
                 {
                     Id = 2,
                     IsActive = true,
-                    FirstName = "Роалд",
-                    LastName = "Дал"
+                    Name = "Роалд Дал"
                 },
 
                 new Author()
                 {
                     Id = 3,
                     IsActive = true,
-                    FirstName = "Роджър",
-                    LastName = "Зелазни"
+                    Name = "Роджър Зелазни"
                 },
 
                 new Author()
                 {
                     Id = 4,
                     IsActive = true,
-                    FirstName = "Ерих",
-                    LastName = "Кестнер"
+                    Name = "Ерих Кестнер"
                 },
 
                 new Author()
                 {
                     Id = 5,
                     IsActive = true,
-                    FirstName = "Астрид",
-                    LastName = "Линдгрен"
+                    Name = "Астрид Линдгрен"
                 },
 
                 new Author()
                 {
                     Id = 6,
                     IsActive = true,
-                    FirstName = "Карл",
-                    LastName = "Маркс"
+                    Name = "Карл Маркс"
                 },
 
                 new Author()
                 {
                     Id = 7,
                     IsActive = true,
-                    FirstName = "Айн",
-                    LastName = "Ранд"
+                    Name = "Айн Ранд"
                 },
 
                 new Author()
                 {
                     Id = 8,
                     IsActive = true,
-                    FirstName = "Николай",
-                    LastName = "Теллалов"
+                    Name = "Николай Теллалов"
                 },
 
                 new Author()
                 {
                     Id = 9,
                     IsActive = true,
-                    FirstName = "Зигмунд",
-                    LastName = "Фройд"
+                    Name = "Зигмунд Фройд"
                 },
 
                 new Author()
                 {
                     Id = 10,
                     IsActive = true,
-                    FirstName = "Ерих",
-                    LastName = "Фром"
+                    Name = "Ерих Фром"
                 },
 
                 new Author()
                 {
                     Id = 11,
                     IsActive = true,
-                    FirstName = "Робърт",
-                    LastName = "Шекли"
+                    Name = "Робърт Шекли"
                 },
 
                 new Author()
                 {
                     Id = 12,
                     IsActive = true,
-                    FirstName = "Карл",
-                    LastName = "Юнг"
+                    Name = "Карл Юнг"
                 },
 
                 new Author()
                 {
                     Id = 13,
                     IsActive = true,
-                    FirstName = "Туве",
-                    LastName = "Янсон"
+                    Name = "Туве Янсон"
                 },
 
                 new Author()
                 {
                     Id = 14,
                     IsActive = true,
-                    FirstName = "Светлин",
-                    LastName = "Наков"
+                    Name = "Светлин Наков"
                 }
             };
 

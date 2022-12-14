@@ -16,19 +16,81 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             repo = _repo;
         }
 
+        public async Task<BookQueryModel> All(string? genre = null, string? searchTerm = null, string? author = null, BookSorting sorting = BookSorting.Newest, int currentPage = 1, int booksPerPage = 1)
+        {
+            var result = new BookQueryModel();
+            var books = repo.AllReadonly<Book>();
+
+            if (string.IsNullOrEmpty(genre) == false)
+            {
+                books = books
+                    .Where(b => b.Genre.GenreName == genre);
+            }
+
+            if (string.IsNullOrEmpty(author) == false)
+            {
+                books = books
+                    .Where(b => b.Author.Name == author);
+            }
+
+            if (string.IsNullOrEmpty(searchTerm) == false)
+            {
+                searchTerm = $"%{searchTerm.ToLower()}%";
+                books = books
+                    .Where(b => EF.Functions.Like(b.Title.ToLower(), searchTerm) 
+                    || EF.Functions.Like(b.Isbn.ToLower(), searchTerm)
+                    || EF.Functions.Like(b.Author.Name.ToLower(), searchTerm)
+                    || EF.Functions.Like(b.Publisher.PublisherName.ToLower(), searchTerm)
+                    || EF.Functions.Like(b.Description.ToLower(), searchTerm));
+            }
+
+            books = sorting switch
+            {
+                BookSorting.Price => books
+                .OrderBy(b => b.Price),
+                BookSorting.Genre => books
+                .OrderBy(b => b.Genre.GenreName),
+                BookSorting.Author => books
+                .OrderBy(b => b.Author.Name),
+                BookSorting.Quantity => books
+                .OrderBy(b => b.Quantity),
+                BookSorting.Publisher => books
+                .OrderBy(b => b.Publisher.PublisherName),
+                BookSorting.Title => books
+                .OrderBy(b => b.Title),
+                _ => books.OrderByDescending(b => b.Id)
+            };
+
+            result.Books = await books
+                .Skip((currentPage - 1) * booksPerPage)
+                .Take(booksPerPage)
+                .Select(b => new BookServiceModel()
+                {
+                    Quantity = b.Quantity,
+                    Id = b.Id,
+                    ImageUrl = b.ImageUrl,
+                    Price = b.Price,
+                    Title = b.Title
+                })
+                .ToListAsync();
+
+            result.TotalBooksCount = await books.CountAsync();
+
+            return result;
+        }
+
         public async Task<IEnumerable<BookAuthorModel>> AllAuthors()
         {
             return await repo.AllReadonly<Author>()
-                .OrderBy(a => a.FirstName)
-                .ThenBy(a => a.LastName)
+                .OrderBy(a => a.Name)
                 .Select(a => new BookAuthorModel()
                 {
                     Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName
+                    Name = a.Name
                 })
                 .ToListAsync();
         }
+
 
         public async Task<IEnumerable<BookGenreModel>> AllGenres()
         {
@@ -39,6 +101,22 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
                     Id = g.Id,
                     Name = g.GenreName
                 })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> AllGenresNames()
+        {
+            return await repo.AllReadonly<Genre>()
+                .Select(g => g.GenreName)
+                .Distinct()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> AllAuthorsNames()
+        {
+            return await repo.AllReadonly<Author>()
+                .Select(a => a.Name)
+                .Distinct()
                 .ToListAsync();
         }
 

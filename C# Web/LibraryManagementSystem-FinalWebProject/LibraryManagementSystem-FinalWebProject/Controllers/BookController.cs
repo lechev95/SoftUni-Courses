@@ -23,11 +23,22 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllBooksQueryModel query)
         {
-            BookQueryModel? model = new BookQueryModel();
+            var result = await bookService.All(
+                query.Genre,
+                query.SearchTerm,
+                query.Author,
+                query.Sorting,
+                query.CurrentPage,
+                AllBooksQueryModel.BooksPerPage);
 
-            return View(model);
+            query.TotalBooksCount = result.TotalBooksCount;
+            query.Genres = await bookService.AllGenresNames();
+            query.Authors = await bookService.AllAuthorsNames();
+            query.Books = result.Books;
+
+            return View(query);
         }
 
         public async Task<IActionResult> Mine()

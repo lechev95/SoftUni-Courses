@@ -1,8 +1,113 @@
-﻿@model BookQueryModel
+﻿@model AllBooksQueryModel
 
 @{
     ViewBag.Title = "Всички книги";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr/>
+<hr />
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Genre">Жанр</label>
+                <select asp-for="Genre" class="form-control">
+                    <option value="">Всички</option>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option value="@genre">@genre</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author">Автор</label>
+                <select asp-for="Author" class="form-control">
+                    <option value="">Всички</option>
+                    @foreach (var author in Model.Authors)
+                    {
+                                    <option value="@author">@author</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm">Ключови думи</label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting">Сортиране</label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Най-Нови</option>
+                    <option value="1">Цена</option>
+                    <option value="2">Количество</option>
+                    <option value="3">Жанр</option>
+                    <option value="4">Автор</option>
+                    <option value="5">Издател</option>
+                    <option value="6">Заглавие</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Търсене" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalBooksCount /
+        AllBooksQueryModel.BooksPerPage);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Book"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-category="@Model.Genre"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    </div>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Books.Any();
+    }
+
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary 
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Book"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-category="@Model.Genre"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </div>
+</div>
+
+@if (!Model.Books.Any())
+{
+    <h2 class="text-center">Няма намерени книги, съответстващи на зададените критерии!</h2>
+}
+
+<div class="row">
+    @foreach (var book in Model.Books)
+    {
+        <partial name="_BookPartial" model="@book" />
+    }
+</div>

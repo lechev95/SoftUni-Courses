@@ -52,7 +52,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", string.Empty));
             }
 
-            if (await authorService.AuthorFirstNameExists(model.FirstName) && await authorService.AuthorLastNameExists(model.LastName))
+            if (await authorService.AuthorNameExists(model.Name))
             {
                 ModelState.AddModelError("", "Авторът вече съществува");
                 TempData[MessageConstant.ErrorMessage] = "Авторът вече съществува";

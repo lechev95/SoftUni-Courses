@@ -20,5 +20,16 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<bool> PublisherExists(int publisherId);
 
         Task<int> Create(BookModel model, int librarianId);
+
+        Task<BookQueryModel> All(
+            string? genre = null,
+            string? searchTerm = null,
+            string? author = null,
+            BookSorting sorting = BookSorting.Newest,
+            int currentPage = 1,
+            int booksPerPage = 1);
+
+        Task<IEnumerable<string>> AllGenresNames();
+        Task<IEnumerable<string>> AllAuthorsNames();
     }
 }

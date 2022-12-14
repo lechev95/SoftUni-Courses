@@ -3,7 +3,6 @@
     public class BookAuthorModel
     {
         public int Id { get; set; }
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
+        public string Name { get; set; } = null!;
     }
 }
