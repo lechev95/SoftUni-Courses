@@ -303,13 +303,12 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
                 return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
 
-            //if (book.Quantity <= 0)
-            //{
-            //    TempData[MessageConstant.WarningMessage] = "Недостатъчна наличност";
-            //    return RedirectToAction(nameof(All));
-            //}
+            if (await bookService.IsRented(id))
+            {
+                TempData[MessageConstant.WarningMessage] = "Вече сте наели тази книга";
+                return RedirectToAction(nameof(All));
+            }
 
-            //book.Quantity -= 1;
             TempData[MessageConstant.SuccessMessage] = "Успешно наета книга";
             await bookService.Rent(id, User.Id());
 
