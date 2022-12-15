@@ -28,6 +28,15 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             return genre.Id;
         }
 
+        public async Task Edit(int genreId, GenreModel model)
+        {
+            var genre = await repo.GetByIdAsync<Genre>(genreId);
+
+            genre.GenreName = model.GenreName;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<bool> GenreExists(string genreName)
         {
             return await repo.AllReadonly<Genre>()

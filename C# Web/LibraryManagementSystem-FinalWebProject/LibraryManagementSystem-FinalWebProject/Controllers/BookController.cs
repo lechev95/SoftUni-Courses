@@ -136,17 +136,112 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = new BookModel();
+            if ((await bookService.BookExists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await bookService.HasLibrarianWithId(id, User.Id())) == false)
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            var book = await bookService.BookDetailsById(id);
+            var genreId = await bookService.GetBookGenreId(id);
+            var publisherId = await bookService.GetBookPublisherId(id);
+            var authorId = await bookService.GetBookAuthorId(id);
+
+            var model = new BookModel()
+            {
+                Id = id,
+                Description = book.Description,
+                Title = book.Title,
+                ImageUrl = book.ImageUrl,
+                Price = book.Price,
+                Quantity = book.Quantity,
+                GenreId = genreId,
+                PublisherId = publisherId,
+                AuthorId = authorId,
+                Genres = await bookService.AllGenres(),
+                Authors = await bookService.AllAuthors(),
+                Publishers = await bookService.AllPublishers()
+            };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, BookModel model)
+        public async Task<IActionResult> Edit(int id,BookModel model)
         {
-            return RedirectToAction(nameof(Details), new { id });
+            if (id != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await bookService.BookExists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "Книгата не съществува!");
+                TempData[MessageConstant.ErrorMessage] = "Книгата не съществува!";
+                model.Genres = await bookService.AllGenres();
+                model.Authors = await bookService.AllAuthors();
+                model.Publishers = await bookService.AllPublishers();
+
+                return View(model);
+            }
+
+            if ((await bookService.HasLibrarianWithId(model.Id, User.Id())) == false)
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await bookService.GenreExists(model.GenreId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.GenreId), "Жанрът не съществува!");
+                model.Genres = await bookService.AllGenres();
+                model.Authors = await bookService.AllAuthors();
+                model.Publishers = await bookService.AllPublishers();
+
+                TempData[MessageConstant.ErrorMessage] = "Жанрът не съществува!";
+
+                return View(model);
+            }
+
+            if ((await bookService.PublisherExists(model.PublisherId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.PublisherId), "Издателят не съществува!");
+                model.Genres = await bookService.AllGenres();
+                model.Authors = await bookService.AllAuthors();
+                model.Publishers = await bookService.AllPublishers(); TempData[MessageConstant.ErrorMessage] = "Издателят не съществува!";
+
+                return View(model);
+            }
+
+            if ((await bookService.AuthorExists(model.AuthorId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.AuthorId), "Авторът не съществува!");
+                model.Genres = await bookService.AllGenres();
+                model.Authors = await bookService.AllAuthors();
+                model.Publishers = await bookService.AllPublishers();
+
+                return View(model);
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Genres = await bookService.AllGenres();
+                model.Authors = await bookService.AllAuthors();
+                model.Publishers = await bookService.AllPublishers();
+
+                return View(model);
+            }
+
+            await bookService.Edit(model.Id, model);
+
+            return RedirectToAction(nameof(Details), new { model.Id });
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Models.Book
 {
     public class BookModel
     {
+        public int Id { get; set; }
         [Required]
         [Display(Name = "ИСБН")]
         [StringLength(maximumLength: 20, MinimumLength = 7)]

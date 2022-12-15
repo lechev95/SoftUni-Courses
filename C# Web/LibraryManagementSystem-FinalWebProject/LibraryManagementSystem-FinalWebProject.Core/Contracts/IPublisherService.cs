@@ -9,5 +9,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<bool> PublisherExistsById(int publisherId);
         Task<int> GetPublisherId(int publisherId);
         Task<PublisherQueryModel> GetPublishers();
+        Task Edit(int publisherId, PublisherModel model);
+
     }
 }

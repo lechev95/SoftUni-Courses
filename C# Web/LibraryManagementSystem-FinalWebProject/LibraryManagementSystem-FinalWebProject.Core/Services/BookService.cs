@@ -20,7 +20,8 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<BookQueryModel> All(string? genre = null, string? searchTerm = null, string? author = null, BookSorting sorting = BookSorting.Newest, int currentPage = 1, int booksPerPage = 1)
         {
             var result = new BookQueryModel();
-            var books = repo.AllReadonly<Book>();
+            var books = repo.AllReadonly<Book>()
+                .Where(b => b.IsActive);
 
             if (string.IsNullOrEmpty(genre) == false)
             {
@@ -136,7 +137,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<bool> AuthorExists(int authorId)
         {
             return await repo.AllReadonly<Author>()
-                .AnyAsync(a => a.Id == authorId);
+                .AnyAsync(a => a.Id == authorId && a.IsActive);
         }
 
         public async Task<int> Create(BookModel model, int librarianId)
@@ -165,12 +166,13 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<bool> GenreExists(int genreId)
         {
             return await repo.AllReadonly<Genre>()
-                .AnyAsync(g => g.Id == genreId);
+                .AnyAsync(g => g.Id == genreId && g.IsActive);
         }
 
         public async Task<IEnumerable<BookHomeModel>> LastFiveBooks()
         {
             return await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
                 .OrderByDescending(b => b.Id)
                 .Select(b => new BookHomeModel()
                 {
@@ -185,12 +187,13 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<bool> PublisherExists(int publisherId)
         {
             return await repo.AllReadonly<Publisher>()
-                .AnyAsync(p => p.Id == publisherId);
+                .AnyAsync(p => p.Id == publisherId && p.IsActive);
         }
 
         public async Task<IEnumerable<BookServiceModel>> AllBooksByLibrarianId(int id)
         {
             return await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
                 .Where(b => b.LibrarianId == id)
                 .Select(b => new BookServiceModel()
                 {
@@ -207,6 +210,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<IEnumerable<BookServiceModel>> AllBooksByUserId(string userId)
         {
             return await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
                 .Where(b => b.RenterId == userId)
                 .Select(b => new BookServiceModel()
                 {
@@ -223,6 +227,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<BookDetailsModel> BookDetailsById(int id)
         {
             return await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
                 .Where(b => b.Id == id)
                 .Select(b => new BookDetailsModel()
                 {
@@ -250,7 +255,63 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         public async Task<bool> BookExists(int id)
         {
             return await repo.AllReadonly<Book>()
-                .AnyAsync(b => b.Id == id);
+                .AnyAsync(b => b.Id == id && b.IsActive);
+        }
+
+        public async Task Edit(int bookId, BookModel model)
+        {
+            var book = await repo.GetByIdAsync<Book>(bookId);
+
+            book.Description = model.Description;
+            book.Quantity = model.Quantity;
+            book.Price = model.Price;
+            book.Title = model.Title;
+            book.GenreId = model.GenreId;
+            book.AuthorId = model.AuthorId;
+            book.DateReceived = model.DateReceived;
+            book.PublisherId = model.PublisherId;
+            book.ImageUrl = model.ImageUrl;
+            book.Isbn = model.Isbn;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> HasLibrarianWithId(int bookId, string currentUser)
+        {
+            bool result = false;
+            var book = await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
+                .Where(b => b.Id == bookId)
+                .Include(b => b.Librarian)
+                .FirstOrDefaultAsync();
+
+            if (book?.Librarian != null && book.Librarian.UserId == currentUser)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public async Task<int> GetBookGenreId(int bookId)
+        {
+            return (await repo.GetByIdAsync<Book>(bookId)).GenreId;
+        }
+        public async Task<int> GetBookPublisherId(int bookId)
+        {
+            return (await repo.GetByIdAsync<Book>(bookId)).PublisherId;
+        }
+        public async Task<int> GetBookAuthorId(int bookId)
+        {
+            return (await repo.GetByIdAsync<Book>(bookId)).AuthorId;
+        }
+
+        public async Task Delete(int bookId)
+        {
+            var book = await repo.GetByIdAsync<Book>(bookId);
+            book.IsActive = false;
+
+            await repo.SaveChangesAsync();
         }
     }
 }

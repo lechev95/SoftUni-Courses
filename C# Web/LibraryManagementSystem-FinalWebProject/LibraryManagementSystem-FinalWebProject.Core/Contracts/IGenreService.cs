@@ -9,6 +9,7 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<bool> GenreExistsById(int genreId);
         Task<int> GetGenreId(int genreId);
         Task<GenreQueryModel> GetGenres();
+        Task Edit(int genreId, GenreModel model);
 
     }
 }

@@ -43,6 +43,17 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
             return author.Id;
         }
 
+        public async Task Edit(int authorId, AuthorModel model)
+        {
+            var author = await repo.GetByIdAsync<Author>(authorId);
+
+            author.Biography = model.Biography;
+            author.Education = model.Education;
+            author.Name = model.Name;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<int> GetAuthorId(int authorId)
         {
             return (await repo.AllReadonly<Author>()

@@ -62,5 +62,14 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
 
             return result;
         }
+
+        public async Task Edit(int publisherId, PublisherModel model)
+        {
+            var publisher = await repo.GetByIdAsync<Publisher>(publisherId);
+
+            publisher.PublisherName = model.PublisherName;
+
+            await repo.SaveChangesAsync();
+        }
     }
 }

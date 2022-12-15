@@ -35,6 +35,12 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<IEnumerable<BookServiceModel>> AllBooksByUserId(string userId);
         Task<BookDetailsModel> BookDetailsById(int id);
         Task<bool> BookExists(int id);
+        Task Edit(int bookId, BookModel model);
+        Task<bool> HasLibrarianWithId(int bookId, string currentUser);
+        Task<int> GetBookGenreId(int bookId);
+        Task<int> GetBookPublisherId(int bookId);
+        Task<int> GetBookAuthorId(int bookId);
+        Task Delete(int bookId);
 
     }
 }

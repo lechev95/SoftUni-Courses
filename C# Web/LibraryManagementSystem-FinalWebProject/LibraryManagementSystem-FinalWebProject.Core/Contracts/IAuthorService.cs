@@ -9,5 +9,6 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<bool> AuthorExistsById(int authorId);
         Task<int> GetAuthorId(int authorId);
         Task<AuthorQueryModel> GetAuthors();
+        Task Edit(int authorId, AuthorModel model);
     }
 }
