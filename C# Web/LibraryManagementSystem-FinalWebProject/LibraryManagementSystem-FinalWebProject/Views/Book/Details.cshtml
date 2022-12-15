@@ -6,3 +6,55 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Корица">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>Автор: <b>@Model.Author.Name</b></p>
+            <p>Жанр: <b>@Model.Genre</b></p>
+            <p>Количество: <b>@Model.Quantity</b></p>
+            <p>
+                Цена:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </p>
+            <p>@Model.Description</p>
+            <p><i>(@(Model.IsRented ? "Наета" : "Не е наета"))</i></p>
+            <div class="form-inline">
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                        <a class="btn btn-warning" asp-controller="Book" asp-action="Edit"
+                       asp-route-id="@Model.Id">Редактирай</a>
+                        <a class="ml-2 btn btn-danger" asp-controller="Book" asp-action="Delete"
+                       asp-route-id="@Model.Id">Изтрий</a>
+                    @if (!Model.IsRented)
+                    {
+                                <form class="ml-2" asp-controller="Book"
+                              asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Наеми" />
+                                </form>
+                    }
+                    else
+                    {
+                                <form class="ml-2" asp-controller="Book" asp-action="Return"
+                              asp-route-id="@Model.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Върни" />
+                                </form>
+                    }
+                }
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Библиотекар</h5>
+                    <p class="card-text">Имейл:  @Model.Librarian.Email</p>
+                    <p class="card-text">Телефон: @Model.Librarian.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

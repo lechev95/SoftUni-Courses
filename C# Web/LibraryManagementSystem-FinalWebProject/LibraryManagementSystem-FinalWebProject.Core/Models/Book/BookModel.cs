@@ -45,7 +45,6 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Models.Book
         [Display(Name = "Дата на получаване")]
         public DateTime DateReceived { get; set; }
 
-        [Required]
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 500, MinimumLength = 50)]
         public string? Description { get; set; }

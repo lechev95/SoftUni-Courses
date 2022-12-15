@@ -31,5 +31,10 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
 
         Task<IEnumerable<string>> AllGenresNames();
         Task<IEnumerable<string>> AllAuthorsNames();
+        Task<IEnumerable<BookServiceModel>> AllBooksByLibrarianId(int id);
+        Task<IEnumerable<BookServiceModel>> AllBooksByUserId(string userId);
+        Task<BookDetailsModel> BookDetailsById(int id);
+        Task<bool> BookExists(int id);
+
     }
 }

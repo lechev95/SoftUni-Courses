@@ -3,6 +3,7 @@ using LibraryManagementSystem.Core.Constants;
 using LibraryManagementSystem.Extensions;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
+using LibraryManagementSystem_FinalWebProject.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,15 +44,32 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
         public async Task<IActionResult> Mine()
         {
-            BookQueryModel? model = new BookQueryModel();
+            IEnumerable<BookServiceModel> myBooks;
+            var userId = User.Id();
 
-            return View(model);
+            if (await librarianService.ExistsById(userId))
+            {
+                int librarianId = await librarianService.GetLibrarianId(userId);
+                myBooks = await bookService.AllBooksByLibrarianId(librarianId);
+            }
+            else
+            {
+                myBooks = await bookService.AllBooksByUserId(userId);
+            }
+
+            return View(myBooks);
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var model = new BookDetailsModel();
+            if ((await bookService.BookExists(id)) == false)
+            {
+                TempData[MessageConstant.ErrorMessage] = "Страницата не съществува";
+                return RedirectToAction(nameof(All));
+            }
+
+            var model = await bookService.BookDetailsById(id);
 
             return View(model);
         }

@@ -2,6 +2,7 @@
 using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.Infrastructure.Data.Common;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
+using LibraryManagementSystem_FinalWebProject.Core.Models.Author;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
 using Microsoft.EntityFrameworkCore;
 
@@ -185,6 +186,71 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         {
             return await repo.AllReadonly<Publisher>()
                 .AnyAsync(p => p.Id == publisherId);
+        }
+
+        public async Task<IEnumerable<BookServiceModel>> AllBooksByLibrarianId(int id)
+        {
+            return await repo.AllReadonly<Book>()
+                .Where(b => b.LibrarianId == id)
+                .Select(b => new BookServiceModel()
+                {
+                    Quantity = b.Quantity,
+                    Id = b.Id,
+                    ImageUrl= b.ImageUrl,
+                    IsRented = b.RenterId != null,
+                    Price = b.Price,
+                    Title = b.Title,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BookServiceModel>> AllBooksByUserId(string userId)
+        {
+            return await repo.AllReadonly<Book>()
+                .Where(b => b.RenterId == userId)
+                .Select(b => new BookServiceModel()
+                {
+                    Quantity = b.Quantity,
+                    Id = b.Id,
+                    ImageUrl = b.ImageUrl,
+                    IsRented = b.RenterId != null,
+                    Price = b.Price,
+                    Title = b.Title,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<BookDetailsModel> BookDetailsById(int id)
+        {
+            return await repo.AllReadonly<Book>()
+                .Where(b => b.Id == id)
+                .Select(b => new BookDetailsModel()
+                {
+                    Description = b.Description,
+                    Genre = b.Genre.GenreName,
+                    ImageUrl = b.ImageUrl,
+                    Price = b.Price,
+                    Quantity = b.Quantity,
+                    Id = b.Id,
+                    Title = b.Title,
+                    IsRented = b.RenterId != null,
+                    Author = new AuthorModel()
+                    {
+                        Name = b.Author.Name
+                    },
+                    Librarian = new Models.Librarian.LibrarianServiceModel()
+                    {
+                        Email = b.Librarian.User.Email,
+                        PhoneNumber = b.Librarian.PhoneNumber,
+                    }
+                })
+                .FirstAsync();
+        }
+
+        public async Task<bool> BookExists(int id)
+        {
+            return await repo.AllReadonly<Book>()
+                .AnyAsync(b => b.Id == id);
         }
     }
 }

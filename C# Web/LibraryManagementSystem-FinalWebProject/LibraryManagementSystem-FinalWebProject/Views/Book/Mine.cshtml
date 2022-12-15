@@ -1,4 +1,4 @@
-﻿@model BookQueryModel
+﻿@model IEnumerable<BookServiceModel>
 
 @{
     ViewBag.Title = "Мои книги";
@@ -6,3 +6,17 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
+
+@if(Model.Any())
+{
+    <div class="row">
+        @foreach(var book in Model)
+        {
+            <partial name="_BookPartial" model="@book"/>
+        }
+    </div>
+}
+else
+{
+    <h3 class="text-center">Все още нямате книги!</h3>
+}
