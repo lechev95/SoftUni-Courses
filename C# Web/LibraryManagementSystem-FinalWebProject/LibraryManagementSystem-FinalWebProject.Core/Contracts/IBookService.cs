@@ -41,6 +41,9 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Contracts
         Task<int> GetBookPublisherId(int bookId);
         Task<int> GetBookAuthorId(int bookId);
         Task Delete(int bookId);
-
+        Task<bool> IsRented(int bookId);
+        Task<bool> IsRentedByUserWithId(int bookId, string currentUserId);
+        Task Rent(int bookId, string currentUserId);
+        Task Return(int bookId);
     }
 }

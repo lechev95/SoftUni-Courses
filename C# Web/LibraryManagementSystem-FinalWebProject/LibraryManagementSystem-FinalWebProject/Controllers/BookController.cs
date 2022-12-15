@@ -3,7 +3,6 @@ using LibraryManagementSystem.Core.Constants;
 using LibraryManagementSystem.Extensions;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
-using LibraryManagementSystem_FinalWebProject.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -244,21 +243,99 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
             return RedirectToAction(nameof(Details), new { model.Id });
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            if ((await bookService.BookExists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await bookService.HasLibrarianWithId(id, User.Id())) == false)
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            var book = await bookService.BookDetailsById(id);
+
+            var model = new BookDetailsViewModel()
+            {
+                Description = book.Description,
+                ImageUrl = book.ImageUrl,
+                Title = book.Title
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, BookDetailsViewModel model)
+        {
+            if ((await bookService.BookExists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await bookService.HasLibrarianWithId(id, User.Id())) == false)
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            await bookService.Delete(id);
             return RedirectToAction(nameof(All));
         }
 
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
+            var book = new BookModel();
+
+            if ((await bookService.BookExists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if (await librarianService.ExistsById(User.Id()))
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            //if (book.Quantity <= 0)
+            //{
+            //    TempData[MessageConstant.WarningMessage] = "Недостатъчна наличност";
+            //    return RedirectToAction(nameof(All));
+            //}
+
+            //book.Quantity -= 1;
+            TempData[MessageConstant.SuccessMessage] = "Успешно наета книга";
+            await bookService.Rent(id, User.Id());
+
             return RedirectToAction(nameof(Mine));
         }
 
         [HttpPost]
         public async Task<IActionResult> Return(int id)
         {
+            var book = new BookModel();
+
+            if ((await bookService.BookExists(id)) == false ||
+                (await bookService.IsRented(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await bookService.IsRentedByUserWithId(id, User.Id())) == false)
+            {
+                TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            TempData[MessageConstant.SuccessMessage] = "Успешно върната книга";
+            await bookService.Return(id);
+
             return RedirectToAction(nameof(Mine));
         }
     }

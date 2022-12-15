@@ -1,9 +1,11 @@
-﻿using LibraryManagementSystem.Core.Models.Book;
+﻿using LibraryManagementSystem.Core.Exceptions;
+using LibraryManagementSystem.Core.Models.Book;
 using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.Infrastructure.Data.Common;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Author;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem_FinalWebProject.Core.Services
@@ -11,10 +13,14 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
     public class BookService : IBookService
     {
         private readonly IRepository repo;
+        private readonly IGuard guard;
 
-        public BookService(IRepository _repo)
+        public BookService(
+            IRepository _repo,
+            IGuard _guard)
         {
             repo = _repo;
+            guard = _guard;
         }
 
         public async Task<BookQueryModel> All(string? genre = null, string? searchTerm = null, string? author = null, BookSorting sorting = BookSorting.Newest, int currentPage = 1, int booksPerPage = 1)
@@ -310,6 +316,53 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
         {
             var book = await repo.GetByIdAsync<Book>(bookId);
             book.IsActive = false;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsRented(int bookId)
+        {
+            return (await repo.GetByIdAsync<Book>(bookId)).RenterId != null;
+        }
+
+        public async Task<bool> IsRentedByUserWithId(int bookId, string currentUserId)
+        {
+            bool result = false;
+            var book = await repo.AllReadonly<Book>()
+                .Where(b => b.IsActive)
+                .Where(b => b.Id == bookId)
+                .FirstOrDefaultAsync();
+
+            if (book != null && book.RenterId == currentUserId)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public async Task Rent(int bookId, string currentUserId)
+        {
+            var book = await repo.GetByIdAsync<Book>(bookId);
+
+            if (book.Quantity <= 0)
+            {
+                throw new ArgumentException("Недостатъчна наличност");
+            }
+
+            guard.AgainstNull(book, "Книгата не може да бъде намерена");
+
+            book.Quantity -= 1;
+            book.RenterId = currentUserId;
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task Return(int bookId)
+        {
+            var book = await repo.GetByIdAsync<Book>(bookId);
+            guard.AgainstNull(book, "Книгата не може да бъде намерена");
+            book.RenterId = null;
+            book.Quantity += 1;
 
             await repo.SaveChangesAsync();
         }
