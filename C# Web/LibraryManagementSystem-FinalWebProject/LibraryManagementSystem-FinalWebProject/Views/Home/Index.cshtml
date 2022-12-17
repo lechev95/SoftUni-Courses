@@ -52,11 +52,24 @@
         <span class="visually-hidden">Следващ</span>
     </button>
 </div>
+<div class="mb-5"></div>
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Покажи статистика</button>
+    </div>
+</div>
+
+<div class="mt-4 p-5 bg-light d-none" id="statistics">
+    <div class="row">
+        <h2 class="col-md-6 text-center" id="total-books"></h2>
+    <h2 class="col-md-6 text-center" id="total-rents"></h2>
+    </div>
+</div>
 
 @section Scripts {
     <script>
         $('#statistics-button').on('click', ev => {
-            $.get('/api/statistics', (data) => {
+                $.get('https://localhost:7086/api/statistics', (data) => {
                 $('#total-books').text(data.totalBooks + " Книги");
                 $('#total-rents').text(data.totalRents + " Наети");
                 $('#statistics').removeClass('d-none');
