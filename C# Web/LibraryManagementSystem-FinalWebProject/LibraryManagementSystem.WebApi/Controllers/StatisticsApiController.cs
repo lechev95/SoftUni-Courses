@@ -14,9 +14,14 @@ namespace LibraryManagementSystem.WebApi.Controllers
             service = _service;
         }
 
+        /// <summary>
+        /// Get statistics about number of books and rented books
+        /// </summary>
+        /// <returns>Total books and total books</returns>
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(200, Type = typeof(StatisticsServiceModel))]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetStatistics()
         {
             var model = await service.Total();
