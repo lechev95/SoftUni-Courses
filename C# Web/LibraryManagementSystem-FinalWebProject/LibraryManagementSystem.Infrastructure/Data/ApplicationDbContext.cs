@@ -1,6 +1,5 @@
 ﻿using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.Infrastructure.Data.Configuration;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
