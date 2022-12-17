@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LibraryManagementSystem_FinalWebProject.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem_FinalWebProject.Core.Models.Book
 {
-    public class BookServiceModel
+    public class BookServiceModel : IBookModel
     {
         public int Id { get; init; }
         [Display(Name = "Заглавие")]

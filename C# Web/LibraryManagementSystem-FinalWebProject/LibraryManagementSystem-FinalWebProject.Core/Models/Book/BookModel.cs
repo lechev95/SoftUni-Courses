@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibraryManagementSystem_FinalWebProject.Core.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem_FinalWebProject.Core.Models.Book
 {
-    public class BookModel
+    public class BookModel : IBookModel
     {
         public int Id { get; set; }
         [Required]

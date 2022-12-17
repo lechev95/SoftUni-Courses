@@ -1,7 +1,7 @@
 using LibraryManagementSystem.Data;
-using LibraryManagementSystem.Infrastructure.Data;
 using LibraryManagementSystem.ModelBinders;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem
@@ -26,11 +26,13 @@ namespace LibraryManagementSystem
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:RequiredLength"); ;
                 options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:RequireNonAlphanumeric"); ;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
             builder.Services.AddApplicationServices();
             builder.Services.AddResponseCaching();
@@ -55,10 +57,25 @@ namespace LibraryManagementSystem
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
+                  name: "bookDetails",
+                  pattern: "Book/Details/{id}/{information}"
+                );
+
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapRazorPages();
+            });
             app.UseResponseCaching();
 
             app.Run();

@@ -3,6 +3,7 @@ using LibraryManagementSystem.Core.Constants;
 using LibraryManagementSystem.Extensions;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
+using LibraryManagementSystem_FinalWebProject.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,7 +64,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if ((await bookService.BookExists(id)) == false)
             {
@@ -72,6 +73,12 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
             }
 
             var model = await bookService.BookDetailsById(id);
+
+            if (information != model.GetInformation())
+            {
+                TempData[MessageConstant.ErrorMessage] = "Възникна неочаквана грешка";
+                return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", string.Empty));
+            }
 
             return View(model);
         }
@@ -134,7 +141,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
             int id = await bookService.Create(model, librarianId);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id = id, information = model.GetInformation()  });
         }
 
         [HttpGet]
@@ -244,7 +251,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
             await bookService.Edit(model.Id, model);
 
-            return RedirectToAction(nameof(Details), new { model.Id });
+            return RedirectToAction(nameof(Details), new { id = model.Id, information = model.GetInformation() });
         }
 
         [HttpGet]

@@ -1,6 +1,8 @@
-﻿namespace LibraryManagementSystem.Core.Models.Book
+﻿using LibraryManagementSystem_FinalWebProject.Core.Contracts;
+
+namespace LibraryManagementSystem.Core.Models.Book
 {
-    public class BookHomeModel
+    public class BookHomeModel : IBookModel
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;
