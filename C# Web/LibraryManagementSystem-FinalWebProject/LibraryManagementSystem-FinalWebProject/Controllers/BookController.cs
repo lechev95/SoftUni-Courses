@@ -13,13 +13,16 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
     {
         private readonly IBookService bookService;
         private readonly ILibrarianService librarianService;
+        private readonly ILogger logger;
 
         public BookController(
             IBookService _bookService,
-            ILibrarianService _librarianService)
+            ILibrarianService _librarianService,
+            ILogger<BookController> _logger)
         {
             bookService = _bookService;
             librarianService = _librarianService;
+            logger = _logger;
         }
 
         [AllowAnonymous]
@@ -144,6 +147,7 @@ namespace LibraryManagementSystem_FinalWebProject.Controllers
 
             if ((await bookService.HasLibrarianWithId(id, User.Id())) == false)
             {
+                logger.LogInformation("Потребител с id {0} опитва да редактира книга", User.Id());
                 TempData[MessageConstant.WarningMessage] = "Нямате нужните права, за да достъпите съотвения ресурс";
                 return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }

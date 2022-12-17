@@ -5,8 +5,8 @@ using LibraryManagementSystem.Infrastructure.Data.Common;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Author;
 using LibraryManagementSystem_FinalWebProject.Core.Models.Book;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace LibraryManagementSystem_FinalWebProject.Core.Services
 {
@@ -14,13 +14,16 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
     {
         private readonly IRepository repo;
         private readonly IGuard guard;
+        private readonly ILogger logger;
 
         public BookService(
             IRepository _repo,
-            IGuard _guard)
+            IGuard _guard,
+            ILogger<BookService> _logger)
         {
             repo = _repo;
             guard = _guard;
+            logger = _logger;
         }
 
         public async Task<BookQueryModel> All(string? genre = null, string? searchTerm = null, string? author = null, BookSorting sorting = BookSorting.Newest, int currentPage = 1, int booksPerPage = 1)
@@ -163,8 +166,16 @@ namespace LibraryManagementSystem_FinalWebProject.Core.Services
                 LibrarianId = librarianId
             };
 
-            await repo.AddAsync(book);
-            await repo.SaveChangesAsync();
+            try
+            {
+                await repo.AddAsync(book);
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(Create), ex);
+                throw new ApplicationException("Неуспешен запис на информация в базата", ex);
+            }
 
             return book.Id;
         }
