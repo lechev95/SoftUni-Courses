@@ -1,1 +1,37 @@
-﻿<p>Администраторска начална страница</p>
+﻿@{
+    ViewData["Title"] = "Начална страница";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Привет, администратор!</h2>
+    <p class="lead mb-1 mt-3">
+        Това е администраторски панел - можете да <b>четете</b>, <b>създавате</b>,
+        <b>изтривате</b> и <b>редактирате</b> книги.
+        <br />Може да <b>наемате</b> и <b>връщате</b> свободните също!
+    </p>
+    <p class="lead mt-1">
+        Също така можете да видите <b>всички клиенти и библиотекари</b> ,и <b>всички наети книги</b> в системата.
+    </p>
+    <hr class="my-4">
+    <a asp-area="" asp-controller="Book" asp-action="All"
+       class="btn btn-primary btn-lg">Всички книги</a>
+    <a asp-area="" asp-controller="Book" asp-action="Mine"
+       class="btn btn-primary btn-lg">Мои книги</a>
+    <a asp-area="" asp-controller="Book" asp-action="Add"
+       class="btn btn-primary btn-lg">Добави книга</a>
+    <a asp-area="" asp-controller="Genre" asp-action="All"
+       class="btn btn-primary btn-lg">Всички жанрове</a>
+    <a asp-area="" asp-controller="Genre" asp-action="Add"
+       class="btn btn-primary btn-lg">Добави жанр</a>
+    <a asp-area="" asp-controller="Author" asp-action="Add"
+       class="btn btn-primary btn-lg">Добави автор</a>    
+    <a asp-area="" asp-controller="Author" asp-action="All"
+       class="btn btn-primary btn-lg">Всички автори</a>
+    <a asp-area="" asp-controller="Publisher" asp-action="Add"
+       class="btn btn-primary btn-lg">Добави издател</a>
+    <a asp-area="" asp-controller="Publisher" asp-action="All"
+       class="btn btn-primary btn-lg">Всички издатели</a>
+    <a asp-area="Admin" asp-controller="Users" asp-action="All"
+       class="btn btn-primary btn-lg">Всички потребители</a>
+
+</div>

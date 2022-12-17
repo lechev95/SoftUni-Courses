@@ -1,4 +1,6 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem_FinalWebProject.Areas.Admin.Controllers;
+using LibraryManagementSystem_FinalWebProject.Areas.Admin.Constants;
 using LibraryManagementSystem_FinalWebProject.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -16,6 +18,11 @@ namespace LibraryManagementSystem.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction(nameof(Index), nameof(AdminController).Replace("Controller", string.Empty), new { area = "Admin" });
+            }
+
             var model = await bookService.LastFiveBooks();
 
             return View(model);
