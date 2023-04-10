@@ -1,0 +1,63 @@
+/*
+#2f3a48 - title
+#747e87 - text
+#273240 - background
+#786eff - primary btn
+*/
+
+body{
+    font-family: Helvetica, sans-serif;
+    color: #273240;
+    border-radius: 6px;
+}
+
+.enterprise{
+    max-width: 960px;
+    margin: 60px auto;
+    color: #2f3a48;
+    display: flex;
+    padding: 0px 24px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.enterprise .info{
+    padding: 48px 0;
+    width: 40%;
+}
+
+.enterprise .subtitle{
+    font-size:  10px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.enterprise .title{
+    font-size:  32px;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.enterprise .desc{
+    margin-bottom: 20px;
+    color: #747e87;
+}
+
+.enterprise .btn{
+    all: unset;
+    border: 1px solid #2f3a48;
+    padding: 12px 18px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.enterprise .btn.btn-primary{
+    border-color: #786eff;
+    background-color: #786eff;
+    color: white;
+    margin-right: 12px;
+}
+
+.enterprise .img{
+    width: 30%;
+}

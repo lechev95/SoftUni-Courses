@@ -1,0 +1,209 @@
+:root{
+    --page-bg: #efefef;
+    --fa-icons: #909090;
+    --bold-title: #222222;
+    --light-title:#a8a8a8;
+    --text:#646464;
+}
+
+/* Global styles */
+
+body{
+    font-family: 'Raleway', sans-serif;
+    color: var(--bold-title);
+}
+
+.page-section{
+    max-width: 1880px;
+    margin: 24px auto;
+    background-color: var(--page-bg);
+    height: calc(100vh - 1.5rem);
+    padding: 5rem 6rem;
+}
+
+.section-flexed{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-section .title{
+    font-size: 3rem;
+    font-weight: normal;
+    margin-bottom: 2.5rem;
+}
+
+.page-section .desc{
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+}
+
+.page-section .title .light-title{
+    color: var(--light-title);
+}
+
+.section-flexed .section-info{
+    flex: 0 0 50%;
+}
+
+.section-flexed .section-img{
+    flex: 0 1 35%;
+}
+
+.page-section .divider.vertical{
+    height: 6rem;
+    width: 1px;
+    background-color: var(--bold-title);
+}
+
+.page-section .divider.horizontal{
+    height: 1px;
+    width: 6rem;
+    background-color: var(--bold-title);
+}
+
+/* Hero section */
+#hero.page-section{
+    position: relative;
+}
+
+#hero .navigation{
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+#hero .hero-img{
+    position: absolute;
+    width: 50%;
+    bottom: 0px;
+    right: 5rem;
+}
+
+/* Camera section*/
+#camera .section-info .title{
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    padding-right: 2rem;
+}
+
+#camera .section-info .title .divider.horizontal{
+    margin-right: 2rem;
+}
+
+#camera .socials{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#camera .socials .social{
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--fa-icons);
+    color: white;
+    position: relative;
+}
+
+#camera .socials .social i{
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Whole picture */
+#picture .section-img.picture-img{
+    width: 100%;
+    height: 100%;
+    flex: 0 0 100%;
+}
+#picture{
+    padding: 0;
+}
+
+/* Bridge */
+.section-flexed .section-info {
+    flex: 0 0 40%;
+}
+.section-flexed .section-img.bridge-img{
+    width: 50%;
+    flex: 0 1 50%;
+}
+
+/* Caroussel */
+#caroussel{
+    display: flex;
+    align-items: center;
+}
+
+#caroussel .list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+#caroussel .list .pic:nth-child(2){
+    transform: scale(1.5);
+}
+
+/* Contacts */
+#contacts .section-info{
+    width: 55%;
+    margin: auto;
+    text-align: center;
+}
+
+#contacts .form{
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "email subject"
+    "msg msg"
+    "submit submit";
+}
+
+#contacts .form input,
+#contacts .form textarea {
+    background: transparent;
+    border: 1px solid var(--bold-title);
+    padding: 1rem;
+    width: 100%;
+}
+
+#contacts .form textarea {
+    resize: none;
+}
+
+#contacts .form .email{
+    grid-area: email;
+}
+
+#contacts .form .subject{
+    grid-area: subject;
+}
+
+#contacts .form .msg{
+    grid-area: msg;
+}
+
+#contacts .form .btn {
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--bold-title);
+    background-color: var(--bold-title);
+    color: white;
+    grid-area: submit;
+}
+
+#contacts .section-info.footer{
+    position: relative;
+    bottom: -18rem;
+}
