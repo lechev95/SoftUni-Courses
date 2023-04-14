@@ -1,0 +1,358 @@
+:root{
+    --blue-bg: #85dcff;
+    --white-bg: white;
+}
+
+body{
+    font-family: Arial, sans-serif;
+}
+
+/* NAV */
+nav{
+    margin: 16px 60px 16px 100px;
+    padding: 32px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    font-weight: bold;
+    font-size: larger;
+}
+  
+li{
+    font-size: 1.5em;
+    margin-right: 16px;
+}
+  
+li a{
+    text-decoration: none;
+    color: black;
+}
+
+/*1st section*/
+.hero-container{
+    background-color: var(--blue-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100vh - 15rem);
+    max-width: 1920px;
+    margin: 24px auto;
+}
+
+.hero-content{
+    flex: 0 0 50%;
+    padding-left: 15rem;
+    padding-right: 2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-title{
+    padding-bottom: 2rem;
+    font-size: 48px;
+}
+
+.hero-text{
+    padding-bottom: 2rem;
+    font-size: 24px;
+}
+
+.hero-img{
+    display: flex;
+    padding: 0 2rem;
+    flex: 0 0 40%;
+    height: 100%;
+    width: 100%;
+}
+
+.hero-buttons{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hero-btn-donate{
+    border: 1px solid black;
+    font-weight: bold;
+    color: black;
+    background-color: var(--white-bg);
+    border-radius: 10px;
+    padding: 1rem 5rem;
+    font-size: larger;
+}
+
+.hero-btn-join{
+    border: 1px solid black;
+    font-weight: bold;
+    color: var(--white-bg);
+    background-color: black;
+    border-radius: 10px;
+    padding: 1rem 5rem;
+    font-size: larger;
+}
+
+/* 2nd section */
+.causes-container{
+    background-color: var(--white-bg);
+}
+
+.causes-container .causes-title{
+    margin: 2rem auto;
+}
+.causes-container .causes-titlies{
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    padding-bottom: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.causes-cards-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8rem;
+    text-align: center;
+    gap: 4rem;
+}
+
+.causes-cards-container i{
+    font-size: 180px;
+    margin: 2rem auto;
+}
+
+.causes-cards-title{
+    font-weight: bold;
+    font-size: 28px;
+    margin: 2rem auto;
+}
+
+.causes-cards-content{
+    font-size: 20px;
+}
+
+/*3rd section*/
+.work-container{
+    background-color: var(--blue-bg);
+    padding-bottom: 5rem;
+}
+
+.work-container .work-title{
+    margin: 2rem auto;
+    padding: 5rem;
+    text-align: center;
+    font-size: 40px;
+}
+
+.work-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 25rem;
+    gap: 2rem;
+}
+
+.work-list-left{
+    flex-direction: column;
+    align-items: start;
+    font-weight: normal;
+    text-align: left;
+    flex: 0 0 50%;
+}
+
+.work-list-left li{
+    padding-bottom: 4rem;
+}
+
+.work-list-right li{
+    padding-bottom: 2.25rem;
+}
+
+.work-list-right{
+    flex-direction: column;
+    align-items: start;
+    font-weight: normal;
+    text-align: left;
+    flex: 0 0 50%;
+}
+
+.work-btn{
+    border: 1px solid black;
+    font-weight: normal;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    padding: 1rem 5rem;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    margin: 2rem auto;
+}
+
+/*4th section*/
+.animals-container{
+    background-color: var(--white-bg);
+    max-width: 1920px;
+}
+
+.animals-title{
+    margin: 2rem auto;
+    font-size: 60px;
+    font-weight:900;
+}
+
+.animals-title, .animals-subtitle{
+    text-align: center;
+}
+
+.animals-subtitle{
+    font-size: 24px;
+}
+
+.animals-pic-container{
+    margin: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.animals-pic-container img{
+    flex: 0 0 20%;
+    width: 20%;
+}
+
+/*5th section*/
+.how-container{
+    background-color: var(--white-bg);
+}
+
+.how-container .how-title{
+    margin: 2rem auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+    padding-bottom: 4rem;
+    padding-top: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.how-card{
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 3rem 15rem;
+    background-color: var(--blue-bg);
+}
+
+.how-card-title,
+.how-card-content{
+    padding-left: 3rem;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.how-card-title{
+    background-color: var(--blue-bg);
+}
+
+.how-card-content{
+    background-color: var(--white-bg);
+    border-radius: 0 0 10px 10px;
+    padding: 3rem;
+}
+
+/*6th section*/
+
+.get-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15rem auto 0 auto;
+}
+
+.get-img{
+    flex: 0 0 50%;
+}
+
+.get-form{
+    padding: 0 5rem;
+}
+
+.get-form-title{
+    text-align: left;
+    font-weight: bold;
+    font-size: 40px;
+    padding-bottom: 2rem;
+}
+
+.get-form-content{
+    font-size: 20px;
+    padding-bottom: 2rem;
+}
+
+form{
+    max-width: 700px;
+    margin: 0;
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas: 
+    "email"
+    "submit";
+}
+
+.form-label{
+    color: lightgray;
+    font-weight: bold;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.form-input{
+    border: 1px solid lightgray;
+    background-color: var(--white-bg);
+    border-radius: 10px;
+    padding: 1rem 5rem 1rem 1rem;
+    font-size: larger;
+    margin:  0 35rem 0 0;
+}
+
+.form-btn{
+    border: 1px solid black;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    padding: 1rem 5rem;
+    font-size: larger;
+    margin:  0 55rem 0 0;
+}
+/*last*/
+footer{
+    margin: 16px 60px 16px 100px;
+    padding: 32px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-copy{
+    font-size: larger;
+    font-weight: bold;
+}
+
+.footer-icons{
+    font-size: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1.5rem;
+}

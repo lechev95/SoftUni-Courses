@@ -1,0 +1,70 @@
+:root{
+    --bg-color: #f6e0b5;
+    --text-color: #624f5c;
+    --card-color: #66545e;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+main{
+    max-width: 960px;
+    background-color: var(--bg-color);
+    margin: 4rem auto;
+    display: flex;
+    padding: 0 1.5rem;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.card-section{
+    margin: 1.5rem 1rem auto 1rem;
+    display: flex;
+    align-items: center;
+    gap:2rem;
+    padding: 0;
+    width: 70%;
+}
+
+.up-left{
+    flex:0 1 35%;
+    border: 1px solid black;
+    border-radius: 12px;
+    color: white;
+    background-color: var(--card-color);
+    margin-bottom: 1rem;
+}
+
+.up-right{
+    flex:0 1 35%;
+    border: 1px solid black;
+    border-radius: 12px;
+    color: white;
+    background-color: var(--card-color);
+    margin-bottom: 1rem;
+}
+
+.hero-img{
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    height: 150px;
+    width: 400px;
+    overflow: hidden;
+}
+
+.text{
+    padding-left: 0.25rem;
+    font-weight: bold;
+}
+
+.text-section{
+    color: var(--text-color);
+    font-weight: bold;
+    margin: 1.5rem 1rem auto 2rem;
+    display: flex;
+    align-items: center;
+    gap:2rem;
+    padding: 0;
+    text-align: start;
+}
