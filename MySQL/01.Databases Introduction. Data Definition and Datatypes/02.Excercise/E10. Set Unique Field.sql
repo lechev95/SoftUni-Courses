@@ -1,0 +1,6 @@
+USE minions;
+
+ALTER TABLE users
+DROP PRIMARY KEY,
+ADD PRIMARY KEY(id),
+CHANGE username username NVARCHAR(30) UNIQUE NOT NULL;
