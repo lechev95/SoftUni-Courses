@@ -1,0 +1,33 @@
+CREATE DATABASE IF NOT EXISTS movies;
+
+USE movies;
+
+CREATE TABLE directors(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+director_name VARCHAR(50) NOT NULL,
+notes BLOB
+);
+
+CREATE TABLE genres(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+genre_name VARCHAR(50) NOT NULL,
+notes BLOB
+);
+
+CREATE TABLE categories(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+category_name VARCHAR(50) NOT NULL,
+notes BLOB
+);
+
+CREATE TABLE movies(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(50) NOT NULL,
+director_id INT NOT NULL,
+copyright_year DATE,
+length INT,
+genre_id INT NOT NULL,
+category_id INT NOT NULL,
+rating DOUBLE(6,2),
+notes TEXT
+);
