@@ -14,4 +14,6 @@ mountain_id INT,
 CONSTRAINT fk_peaks_mountains
 FOREIGN KEY (mountain_id)
 REFERENCES mountains(id)
+ON DELETE CASCADE
 );
+
