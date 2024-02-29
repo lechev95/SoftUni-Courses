@@ -1,37 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="51fcf658-9c49-46c3-8eab-372d602f88e1" name="Changes" comment="">
+    <list default="true" id="0ce5f8c1-5b8f-4c26-96a0-50f3008a5d35" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/01. First steps in coding/Lab/src/RectangleArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/01. Programming basics.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/L01. HelloSoftuni.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01. First steps in coding/01. Lab/L01. HelloSoftuni/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/L02. Nums1to10.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming basics/01. First steps in coding/01. Lab/L02. Nums1to10/src/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
+  &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="2cuMZEUUY0OW98IGPLmkDWYhBNG" />
+  <component name="ProjectId" id="2cuPeYaCoiXtoyiEed1b0AFkQyk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ConcatenateData.executor": "Run",
+    "Application.GreetingsByName.executor": "Run",
+    "Application.InchesToCentimeters.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.Nums1to10.executor": "Run",
+    "Application.PetShop.executor": "Run",
+    "Application.ProjectsCreation.executor": "Run",
+    "Application.RectangleArea.executor": "Run",
+    "Application.YardGreening.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/SoftUni-Courses/Java/01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "last_opened_file_path": "D:/SoftUni-Courses/Java/01. Programming basics/01. First steps in coding/Exercise"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -44,11 +78,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="51fcf658-9c49-46c3-8eab-372d602f88e1" name="Changes" comment="" />
-      <created>1708957065241</created>
+      <changelist id="0ce5f8c1-5b8f-4c26-96a0-50f3008a5d35" name="Changes" comment="" />
+      <created>1708958585787</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1708957065241</updated>
+      <updated>1708958585787</updated>
     </task>
     <servers />
   </component>

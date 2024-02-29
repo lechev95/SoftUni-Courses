@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2fc1930b-183e-48e0-8112-29d76ec0de7b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/.idea/01. Programming basics.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/L01. HelloSoftuni.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../01. Programming basics/01. First steps in coding/01. Lab/L01. HelloSoftuni/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/L02. Nums1to10.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../01. Lab/L02. Nums1to10/src/Main.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2cuPJChc2miV0ZQgqIyrK73qU38" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Nums1to10.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/SoftUni-Courses/Java/01. Programming basics"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2fc1930b-183e-48e0-8112-29d76ec0de7b" name="Changes" comment="" />
+      <created>1708958416991</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708958416991</updated>
+    </task>
+    <servers />
+  </component>
+</project>
